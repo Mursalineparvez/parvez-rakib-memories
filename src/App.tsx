@@ -12,6 +12,7 @@ import TimelineSection from './components/TimelineSection';
 import FriendsSection from './components/FriendsSection';
 import AdviceCards from './components/AdviceCards';
 import GuestbookSection from './components/GuestbookSection';
+import NostalgiaQuiz from './components/NostalgiaQuiz';
 import Footer from './components/Footer';
 import ImageModal from './components/ImageModal';
 import { MemoryAlbum } from './data/memoriesData';
@@ -91,6 +92,9 @@ export default function App() {
             setSearchQuery(friendName);
           }}
         />
+
+        {/* Nostalgia Quiz Interactive Section */}
+        <NostalgiaQuiz />
 
         {/* Well-Wishes Guestbook Section */}
         <GuestbookSection />

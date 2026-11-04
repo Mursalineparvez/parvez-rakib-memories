@@ -1,6 +1,6 @@
 /**
  * Memory Data Store for Memory of Parvez and Rakib (Syed)
- * Contains letter chapters, album details with Google Drive links, friend profiles, timeline, and advice.
+ * Enhanced with deep storytelling, detailed event narratives, photo links, friends, timeline and quizzes.
  */
 
 export interface PhotoItem {
@@ -19,13 +19,16 @@ export interface MemoryCategory {
 export interface MemoryAlbum {
   id: string;
   title: string;
+  subtitle?: string;
   description: string;
+  story: string; // Detailed story narrative
   year: number;
   category: 'olympiad' | 'travel' | 'eid' | 'hangout' | 'academic' | 'celebration' | 'farewell' | 'home';
   photos: PhotoItem[];
   location?: string;
   featured?: boolean;
   companions?: string[];
+  emotionTag?: string;
 }
 
 export interface FriendProfile {
@@ -43,8 +46,8 @@ export interface TimelineMilestone {
   title: string;
   tagline: string;
   description: string;
-  highlightAlbumId?: string;
   location: string;
+  keyStory: string;
 }
 
 export interface LetterChapter {
@@ -56,6 +59,14 @@ export interface LetterChapter {
   keyQuote?: string;
 }
 
+export interface QuizQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
 export const CATEGORIES: MemoryCategory[] = [
   { id: 'all', nameBn: 'সকল স্মৃতি (৮৬টি)', icon: 'Sparkles' },
   { id: 'travel', nameBn: 'সেরা ভ্রমণ ও সফর', icon: 'Compass' },
@@ -65,7 +76,7 @@ export const CATEGORIES: MemoryCategory[] = [
   { id: 'academic', nameBn: 'কোচিং, ক্যাম্পাস ও ভর্তি', icon: 'GraduationCap' },
   { id: 'celebration', nameBn: 'বিয়ে, অনুষ্ঠান ও শুভদিন', icon: 'Heart' },
   { id: 'farewell', nameBn: 'বিদায় ও প্রবাস সংবর্ধনা', icon: 'Plane' },
-  { id: 'home', nameBn: 'বাসার স্মৃতি ও বিরিয়ানি রান্না', icon: 'Home' },
+  { id: 'home', nameBn: 'বাসার স্মৃতি ও রান্না-বান্না', icon: 'Home' },
 ];
 
 export const FRIENDS_LIST: FriendProfile[] = [
@@ -73,7 +84,7 @@ export const FRIENDS_LIST: FriendProfile[] = [
     id: 'syed',
     name: 'সাঈদ (রাকিব)',
     role: 'মূল ভাই ও প্রবাসের যাত্রী',
-    bio: 'পারভেজের জীবনের অবিচ্ছেদ্য অংশ। ২০১৭ থেকে ২০২৬—আট বছরের প্রতিটি পদক্ষেপে পাশে থাকা বিশ্বস্ত বন্ধু ও পরম আপনজন।',
+    bio: 'পারভেজের জীবনের অবিচ্ছেদ্য অংশ। ২০১৭ থেকে ২০২৬—আট বছরের প্রতিটি পদক্ষেপে পাশে থাকা বিশ্বস্ত বন্ধু, পরামর্শদাতা ও পরম আপনজন।',
     initials: 'SR',
     color: 'bg-amber-600 text-white',
     memoriesCount: 86,
@@ -170,6 +181,44 @@ export const FRIENDS_LIST: FriendProfile[] = [
   },
 ];
 
+export const QUIZ_QUESTIONS: QuizQuestion[] = [
+  {
+    id: 'q1',
+    question: '২০১৭ সালে সাঈদ ও পারভেজের ঢাকায় প্রথম রাতে কোথায় থাকা হয়েছিল?',
+    options: ['হোটেল প্রাঙ্গণে', 'সাঈদের জেঠার বাসায় নিউমার্কেটে', 'শনির আখড়া মেসে', 'ফার্মগেটে'],
+    correctIndex: 1,
+    explanation: '২০১৭ সালে কলেজে ভর্তির জন্য সাঈদ ও তরিকুল ঢাকায় এলে পারভেজ নিউমার্কেটে দেখা করেন এবং সেদিন সাঈদের জেঠার বাসায় ছোট এক খাটে প্রথম রাত কাটানো হয়।',
+  },
+  {
+    id: 'q2',
+    question: 'শনির আখড়ায় সাগর স্যারকে সাঈদ কীভাবে পারভেজের সাথে পরিচয় করিয়ে দিয়েছিলেন?',
+    options: ['পারভেজ আমার বন্ধু', 'পারভেজ আমার ভাই', 'পারভেজ আমার সহপাঠী', 'পারভেজ আমার কাজিন'],
+    correctIndex: 1,
+    explanation: 'সাগর স্যারের কোচিংয়ে ভর্তির দিন সাঈদ স্যারের কাছে স্বতঃস্ফূর্তভাবে বলেছিল: "পারভেজ আমার ভাই।" এই কথাটি পারভেজের হৃদয়ে চিরতরে দাগ কেটেছিল।',
+  },
+  {
+    id: 'q3',
+    question: 'লিমনের মানিকগঞ্জ সফরের আগের রাতে সাঈদের বাসায় কী রান্না হয়েছিল?',
+    options: ['মুরগির বিরিয়ানি', 'আলু পরোটা', 'নুডুলস ও চা', 'গরুর মাংস ও ভাত'],
+    correctIndex: 1,
+    explanation: 'মানিকগঞ্জ যাওয়ার আগের রাতে সাঈদের বাসায় সবাই মিলে আলু পরোটা বানানো হয়েছিল এবং ফেরার পথে ভিজে শীতে কাঁপতে কাঁপতে ফেরার চিরস্মরণীয় অভিজ্ঞতা হয়।',
+  },
+  {
+    id: 'q4',
+    question: 'বন্ধুদের সাথে কাটানো জীবনের "সবচেয়ে ভালো সময়" হিসেবে কোন সফরটিকে উল্লেখ করা হয়েছে?',
+    options: ['সিলেট ও কায়াকিং সফর', 'কক্সবাজার ও বান্দরবান সফর', 'খুলনা বিশ্ববিদ্যালয় সফর', 'পদ্মা সেতু সফর'],
+    correctIndex: 1,
+    explanation: 'মেহেদি, তরিকুল, টিপু, সাঈদ ও পারভেজ একসাথে যে কক্সবাজার-বান্দরবান সফর করেছিল, সেটিই ছিল সবার জীবনে একসাথে কাটানো সেরা সুবর্ণ সময়।',
+  },
+  {
+    id: 'q5',
+    question: 'পিরোজপুর স্কুল অলিম্পিয়াড সফরের সময় কোন দুঃসংবাদটি এসেছিল?',
+    options: ['বাস নষ্ট হয়ে যাওয়া', 'তরিকুলের আব্বুর ইন্তেকালের খবর', 'বৃষ্টিতে জামাকাপড় ভেজা', 'মোবাইল হারিয়ে যাওয়া'],
+    correctIndex: 1,
+    explanation: 'পিরোজপুর পেয়ারা বাগান ও ইউএনও গেস্ট হাউসে সফরকালে তরিকুলের আব্বু হঠাৎ ইন্তেকাল করেন, যা পুরো ট্রিপকে এক গভীর বিষাদে রূপ দিয়েছিল।',
+  },
+];
+
 export const TIMELINE_MILESTONES: TimelineMilestone[] = [
   {
     year: 2017,
@@ -177,6 +226,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     tagline: 'ব্রিজের আড্ডা থেকে নিউমার্কেটের ছোট্ট খাট',
     description: '২০১৭ সালে তরিকুলের মাধ্যমে ব্রিজে আড্ডা শুরু। কলেজে ভর্তির জন্য সাঈদ ঢাকায় এলে নিউমার্কেটে দেখা করে জেঠার বাসায় প্রথম রাত কাটানো। সেই ছোট্ট খাটে জায়গা ভাগাভাগি এবং নিজের হাতে খাইয়ে দেওয়ার মাধ্যমে ভ্রাতৃত্বের জন্ম।',
     location: 'ঢাকা নিউমার্কেট ও জয়দেবপুর',
+    keyStory: 'যে রাতে নিউমার্কেটে সাঈদের জেঠার ছোট্ট খাটে দুজন মানুষ শোওয়া অসম্ভব ছিল, সেখানে সাঈদ বুক বাড়িয়ে পারভেজকে জায়গা দিয়েছিল। সেই রাতের ভালোবাসা আজও জীবন্ত।',
   },
   {
     year: 2018,
@@ -184,6 +234,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     tagline: 'সাগর স্যারের কোচিং ও হোমনা-লটটার ভ্রমণ',
     description: 'শনির আখড়ায় সাগর স্যারের কোচিংয়ে ভর্তির দিন সাঈদ যখন বলেছিল "পারভেজ আমার ভাই", সেই কথাটা হৃদয়ে দাগ কেটেছিল। শনির আখড়া পাঠাগার, ঈদের পর হোমনা থেকে লটটা ভ্রমণ ও প্রথমবার দি ওয়ান রেস্টুরেন্ট।',
     location: 'শনির আখড়া ও হোমনা',
+    keyStory: 'সাগর স্যারের সামনে প্রথম দিনই "পারভেজ আমার ভাই" বলে সাঈদের সেই স্বীকৃতি দুজনের বন্ধনকে এক অন্য উচ্চতায় নিয়ে যায়।',
   },
   {
     year: 2019,
@@ -191,6 +242,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     tagline: 'লিমনের মানিকগঞ্জ সফর ও সাকিবের বিদায় আড্ডা',
     description: 'লিমনের মানিকগঞ্জ যাওয়ার আগের রাতে আলু পরোটা তৈরি ও ফেরার পথে ভিজে শীতের অভিজ্ঞতা। সাঈদ, পারভেজ ও তরিকুল মিলে ঘরে বিরিয়ানি রান্না। সাকিব বিদেশ যাওয়ার আগে লালবাগ কেল্লা ভ্রমণ।',
     location: 'মানিকগঞ্জ, লালবাগ ও শনির আখড়া',
+    keyStory: 'বাসায় তিন ভাই মিলে বিরিয়ানি রান্নার হাঁড়ি বসানো আর লিমনের বাড়ি থেকে আসার সময় ভিজে শীতে কাঁপতে কাঁপতে হাসাহাসির সেই স্মৃতি অমলিন।',
   },
   {
     year: 2021,
@@ -198,6 +250,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     tagline: 'টিপুর বাড়ির ছাদে বারবিকেউ ও ঢাকা বিশ্ববিদ্যালয়',
     description: 'জাতীয় জীববিজ্ঞান অলিম্পিয়াডের সফর, টিপুর বাড়ির ছাদে বারবিকেউ পার্টি, ছোট নানার বাসায় ভ্রমণ এবং বইমেলায় ঘুরতে যাওয়া।',
     location: 'ঢাকা বিশ্ববিদ্যালয় ও গাউছিয়া',
+    keyStory: 'টিপুর বাড়ির ছাদে ধোঁয়া ওঠা বারবিকেউ আর কুয়াশাচ্ছন্ন রাতের গানের আসর।',
   },
   {
     year: 2022,
@@ -205,6 +258,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     tagline: 'বিশ্ববিদ্যালয় ভর্তি পরীক্ষা ও টাঙ্গাইল-মানিকগঞ্জ',
     description: 'অ্যাডা লাভলেস প্রোগ্রামিং কনটেস্ট ২০২২, ঐতিহাসিক পানাম সিটি ও সোনারগাঁও সফর, জাহাঙ্গীরনগর ও খুলনা গুচ্ছ ভর্তি পরীক্ষা এবং পদ্মা নদীতে ট্রিপ।',
     location: 'পানাম সিটি, পদ্মা নদী ও খুলনা',
+    keyStory: 'সোনারগাঁওয়ের প্রাচীন রাজপথে ইতিহাস ছোঁয়া আর পদ্মার তরতাজা ইলিশ ভোজ।',
   },
   {
     year: 2023,
@@ -212,6 +266,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     tagline: 'সিলেট, কায়াকিং শাড়িঘাট, মেঘনা সফর ও অলিম্পিয়াড',
     description: 'মেহেদি, তরিকুল, টিপু, সাঈদ ও পারভেজের একসাথে কক্সবাজার-বান্দরবান সফর, যা ছিল সবার জীবনের সেরা সময়। এছাড়া ঐতিহাসিক সিলেট ভ্রমণ, কায়াকিং ও জুনিয়র সাইন্স অলিম্পিয়াড ২০২৩।',
     location: 'কক্সবাজার, বান্দরবান, সিলেট ও মেঘনা',
+    keyStory: 'বান্দরবানের মেঘ-পাহাড় আর কক্সবাজারের সমুদ্রের হাওয়ায় পাঁচ বন্ধুর একত্রে হাসিমুখ—এটিই আমাদের জীবনের শ্রেষ্ঠ স্বর্ণ অধ্যায়।',
   },
   {
     year: 2024,
@@ -219,6 +274,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     tagline: 'টিপু ও মেহেদির বিদেশ যাত্রার বিদায় আড্ডা',
     description: 'টিপু ও মেহেদির বিদেশ যাওয়ার আগে ঢাকায় বিশেষ আড্ডা ও খাবারের দিনগুলো। পারভেজ ও সাঈদের বন্ধন আরও গভীর পরিপক্কতায় পৌঁছায়।',
     location: 'ঢাকা ও ডেমরা',
+    keyStory: 'বন্ধুরা এক এক করে প্রবাসের উদ্দেশ্যে উড়াল দেওয়ার আবেগঘন বিদায় সংবর্ধনা।',
   },
   {
     year: 2025,
@@ -226,6 +282,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     tagline: 'জাতীয় পর্ব এবং পিরোজপুর স্বরূপকাঠি সফর',
     description: 'জুনিয়র সাইন্স অলিম্পিয়াড ২০২৫ এর জাতীয় পর্ব এবং পিরোজপুর স্কুল অলিম্পিয়াডে ইউএনও গেস্ট হাউসে থাকা, পেয়ারা বাগান ও সারসিনা মসজিদে জুমা পড়া।',
     location: 'পিরোজপুর ও স্বরূপকাঠি',
+    keyStory: 'ইউএনও গেস্ট হাউসের বাগানে থাকা এবং পেয়ারা বাগানে ঘুরে বেড়ানোর মাঝে হঠাৎ তরিকুলের আব্বুর বিয়োগান্তক খবর পুরো সফরকে বেদনাবিধুর করে তোলে।',
   },
   {
     year: 2026,
@@ -233,6 +290,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     tagline: '৮ বছরের যৌথ যাত্রার পর প্রবাসের নতুন সূচনা',
     description: 'জয়দেবপুর কেন্দ্রীয় ঈদগাঁহে রোজার ঈদ ২০২৬, পারভেজের বিয়ের অবিস্মরণীয় আনন্দের দিন, এবং অবশেষে সাঈদের ভিসা হওয়ার খবর। এক নতুন প্রবাসী অধ্যায়ের শুভসূচনা।',
     location: 'জয়দেবপুর ও প্রবাসী গন্তব্য',
+    keyStory: 'পারভেজের বিয়েতে বরবেশের আনন্দের পর সাঈদের ভিসা হওয়ার সংবাদ—হৃদয়ে শূন্যতা ও ভালোবাসার এক নতুন সংমিশ্রণ।',
   },
 ];
 
@@ -319,7 +377,7 @@ export const PARVEZ_LETTER_CHAPTERS: LetterChapter[] = [
   },
 ];
 
-// Helper to clean drive links and extract ID
+// Helper to extract Drive ID and get thumbnail
 export function extractDriveId(url: string): string {
   const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
   return match ? match[1] : '';
@@ -333,17 +391,20 @@ export function getDriveDirectViewUrl(driveId: string): string {
   return `https://drive.google.com/file/d/${driveId}/view`;
 }
 
-// 86 Complete Parsed Albums from Prompt
+// 86 Complete Memory Albums with Rich Detailed Storytelling Narratives
 export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-1',
     title: 'রোজার ঈদ ২০২৬ জয়দেবপুর কেন্দ্রীয় ঈদগাঁ',
+    subtitle: 'ভ্রাতৃত্বের সুবাস ও মোনাজাতের স্মৃতি',
     description: '২০২৬ সালের পবিত্র ঈদুল ফিতরের দিন জয়দেবপুর কেন্দ্রীয় ঈদগাহ ময়দানে ঈদের নামাজ আদায় ও যৌথ আনন্দঘন মুহূর্ত।',
+    story: '২০২৬ সালের পবিত্র রোজার ঈদের দিন জয়দেবপুর কেন্দ্রীয় ঈদগাহ ময়দানে সকাল সকাল পাঞ্জাবি পরে দুজনে কোলাকুলি করার মুহূর্ত। নামাজের পর বিশাল মাঠে বন্ধুদের সাথে ছবি তোলা আর সাঈদের প্রবাসের ভিসার খবর পাওয়ার প্রাক্কালে কাটানো এক মিশ্র আবেগের ইদের দিন।',
     year: 2026,
     category: 'eid',
     location: 'জয়দেবপুর কেন্দ্রীয় ঈদগাহ',
     featured: true,
     companions: ['সাঈদ (রাকিব)', 'পারভেজ'],
+    emotionTag: 'আবেগঘন ও ঈদ আনন্দ',
     photos: [
       {
         id: 'p-1-1',
@@ -355,13 +416,16 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-2',
-    title: 'পারভেজের বিয়ের শুভ দিন',
+    title: 'পারভেজের বিয়ের আনন্দঘন শুভ দিন',
+    subtitle: 'বন্ধুদের উপস্থিতি ও জীবনের নতুন সূচনা',
     description: 'পারভেজের জীবনের বিশেষ দিনটিতে বন্ধুদের উপস্থিতি, বরবেশে ছবি তোলা এবং চিরস্মরণীয় আনন্দঘন মুহূর্তগুলো।',
+    story: 'পারভেজের জীবনের এক স্মরণীয় শুভ দিন। বরবেশে সাজা পারভেজের পাশে সাঈদ, তরিকুল ও বন্ধুদের বাঁধভাঙা আনন্দ। নতুন জীবনের পদার্পণে সাঈদের আন্তরিক উপস্থিতি ও বন্ধুদের নিয়ে তোলা বিশেষ ফ্রেমগুলো হৃদয়ে অমর হয়ে থাকবে।',
     year: 2026,
     category: 'celebration',
     location: 'গাছবাড়ী ও কমিউনিটি সেন্টার',
     featured: true,
     companions: ['পারভেজ', 'সাঈদ (রাকিব)', 'তরিকুল', 'মেহেদি'],
+    emotionTag: 'আনন্দের শুভ সূচনা',
     photos: [
       { id: 'p-2-1', driveId: '19DU3OvlsgAAcTPyI-elZG1RXiCQjEcPO', driveUrl: 'https://drive.google.com/file/d/19DU3OvlsgAAcTPyI-elZG1RXiCQjEcPO/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('19DU3OvlsgAAcTPyI-elZG1RXiCQjEcPO') },
       { id: 'p-2-2', driveId: '1Qw0SdNh5gfqVV6gxfIul62_v9vW2iO-Z', driveUrl: 'https://drive.google.com/file/d/1Qw0SdNh5gfqVV6gxfIul62_v9vW2iO-Z/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1Qw0SdNh5gfqVV6gxfIul62_v9vW2iO-Z') },
@@ -372,12 +436,15 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-3',
     title: 'জুনিয়র সায়ান্স অলিম্পিয়াড ২০২৫ জাতীয় পর্ব',
+    subtitle: 'মেধার উৎসব ও জাতীয় প্রাঙ্গণে আড্ডা',
     description: 'বিজ্ঞানমনস্ক তরুণদের মিলনমেলা জুনিয়র সায়ান্স অলিম্পিয়াড ২০২৫ এর জাতীয় পর্বের চিরস্মরণীয় স্মৃতি।',
+    story: 'দেশসেরা খুদে বিজ্ঞানীদের জাতীয় উৎসব প্রাঙ্গণে স্বেচ্ছাসেবক ও আয়োজক হিসেবে অংশগ্রহণ। বিজ্ঞানের উদ্ভাবনী পরিবেশের মাঝে সাঈদ ও পারভেজের টিমের একসাথে কাজের সুমধুর স্মৃতি।',
     year: 2025,
     category: 'olympiad',
     location: 'ঢাকা উৎসব প্রাঙ্গণ',
     featured: true,
     companions: ['সাঈদ (রাকিব)', 'পারভেজ'],
+    emotionTag: 'বিজ্ঞান ও উদ্দীপনা',
     photos: [
       { id: 'p-3-1', driveId: '1oEMsnTnmt7sHHG98l_-BOnMZWtghROAA', driveUrl: 'https://drive.google.com/file/d/1oEMsnTnmt7sHHG98l_-BOnMZWtghROAA/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1oEMsnTnmt7sHHG98l_-BOnMZWtghROAA') },
       { id: 'p-3-2', driveId: '1bQU_3NrxeU13GXuHFefYA5gWMmm3qWFb', driveUrl: 'https://drive.google.com/file/d/1bQU_3NrxeU13GXuHFefYA5gWMmm3qWFb/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1bQU_3NrxeU13GXuHFefYA5gWMmm3qWFb') },
@@ -388,12 +455,15 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-4',
     title: 'পিরোজপুর স্কুল অলিম্পিয়াড ও পেয়ারা বাগান সফর',
+    subtitle: 'ইউএনও গেস্ট হাউস, পেয়ারা বাগান ও শোকাবহ মুহূর্ত',
     description: 'ইউএনও গেস্ট হাউসে থাকা, পেয়ারা বাগান ঘোরা, সারসিনা মসজিদে জুমার নামাজ এবং স্বরূপকাঠি সফর। এই সফরেই তরিকুলের আব্বুর ইন্তেকালের শোকাবহ বার্তা আসে।',
+    story: 'পিরোজপুর অলিম্পিয়াড উপলক্ষ্যে স্বরূপকাঠির বাগানঘেরা ইউএনও গেস্ট হাউসে থাকার অভিজ্ঞতা। পেয়ারা বাগানে নৌকায় ঘোরাঘুরি ও সারসিনা মসজিদে ঐতিহ্যবাহী জুমার নামাজ পড়ার স্মৃতি। তবে এই সফরকালেই তরিকুলের আব্বুর হঠাৎ ইন্তেকালের খবর আসে, যা সবাইকে গভীর বিষাদে স্তব্ধ করে দিয়েছিল।',
     year: 2025,
     category: 'travel',
     location: 'পিরোজপুর ও স্বরূপকাঠি',
     featured: true,
     companions: ['সাঈদ (রাকিব)', 'পারভেজ', 'তরিকুল'],
+    emotionTag: 'স্মৃতি ও গভীর বিষাদ',
     photos: [
       { id: 'p-4-1', driveId: '1d5Y2xyHZ-rNuAyU37Eukr4YvcwfyyoZt', driveUrl: 'https://drive.google.com/file/d/1d5Y2xyHZ-rNuAyU37Eukr4YvcwfyyoZt/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1d5Y2xyHZ-rNuAyU37Eukr4YvcwfyyoZt') },
       { id: 'p-4-2', driveId: '1fcg38aNsWpPvQ-YJPMBthrei7VDBQm1L', driveUrl: 'https://drive.google.com/file/d/1fcg38aNsWpPvQ-YJPMBthrei7VDBQm1L/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1fcg38aNsWpPvQ-YJPMBthrei7VDBQm1L') },
@@ -403,11 +473,14 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-5',
     title: 'টিপু বিদেশ যাওয়ার আগে শেষ দেখা ও আড্ডা',
+    subtitle: 'প্রবাসের উদ্দেশ্যে টিপুর বিদায় মুহূর্ত',
     description: 'টিপু বিদেশ যাওয়ার পূর্বে ঢাকায় আমাদের সাথে দেখা করতে এলে এক সাথে আনন্দঘন আড্ডা, খাওয়া-দাওয়া ও বিদায় মুহূর্ত।',
+    story: 'টিপু প্রবাসে পাড়ি দেওয়ার আগে যখন বিশেষ কাজে ঢাকায় এসেছিল, তখন সাঈদ, পারভেজ ও তরিকুল একসাথে রেস্টুরেন্টে বসে গল্প ও খাওয়া-দাওয়া করি। বিদেশের মাটিতে নতুন জীবন শুরুর আগে টিপুকে দোয়ার সাথে বিদায় জানানো হয়।',
     year: 2024,
     category: 'farewell',
     location: 'ঢাকা ও রেস্টুরেন্ট',
     companions: ['টিপু', 'সাঈদ (রাকিব)', 'পারভেজ'],
+    emotionTag: 'বিদায় ও শুভকামনা',
     photos: [
       { id: 'p-5-1', driveId: '1SgU-GT1DzrxXsHYA7fKqnoHIN8WQpUQi', driveUrl: 'https://drive.google.com/file/d/1SgU-GT1DzrxXsHYA7fKqnoHIN8WQpUQi/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1SgU-GT1DzrxXsHYA7fKqnoHIN8WQpUQi') },
       { id: 'p-5-2', driveId: '1vX7Or6s95vt1Wr5K-VTLZ3NeH8t6Tc_7', driveUrl: 'https://drive.google.com/file/d/1vX7Or6s95vt1Wr5K-VTLZ3NeH8t6Tc_7/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1vX7Or6s95vt1Wr5K-VTLZ3NeH8t6Tc_7') },
@@ -418,6 +491,7 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
     id: 'alb-6',
     title: 'স্বেচ্ছাসেবক দিবসে বাংলাদেশ গণিত অলিম্পিয়াড (SPSB)',
     description: 'আন্তর্জাতিক স্বেচ্ছাসেবক দিবস উপলক্ষে গণিত অলিম্পিয়াড ও SPSB পরিবারের সাথে স্মরণীয় দিন।',
+    story: 'বাংলাদেশ গণিত অলিম্পিয়াড ও SPSB কর্তৃক আয়োজিত আন্তর্জাতিক স্বেচ্ছাসেবক দিবস উদযাপনে উপস্থিত থাকা। দেশের বিভিন্ন প্রান্তের গণিতপ্রেমীদের সাথে কাজ করা ও সেরা স্মৃতির ফ্রেম তোলা।',
     year: 2023,
     category: 'olympiad',
     location: 'ঢাকা বিশ্ববিদ্যালয় প্রাঙ্গণ',
@@ -435,7 +509,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-7',
     title: 'জুনিয়র সায়ান্স অলিম্পিয়াড ২০২৩ মেঘনা সফর',
+    subtitle: 'নৌকার ওপর হাওয়া ও রোমাঞ্চের দিন',
     description: 'অলিম্পিয়াড শেষে মেঘনা নদীর জলে ভেসে রোমাঞ্চকর ও আনন্দদায়ক দিন।',
+    story: 'জুনিয়র সাইন্স অলিম্পিয়াড ২০২৩ সফলভাবে শেষ করার পর উদযাপনের জন্য বিশাল মেঘনা নদীতে ট্রিপ। নদীর ঠাণ্ডা বাতাসে ইঞ্জিনের নৌকায় ভেসে চলার রোমাঞ্চকর আনন্দ।',
     year: 2023,
     category: 'travel',
     location: 'মেঘনা নদী',
@@ -448,11 +524,14 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-8',
     title: 'ফাইজার ট্রিট: পুরান ঢাকা সুলতান\'স ডাইন ও সদরঘাট',
+    subtitle: 'কাচ্চি বিরিয়ানি ও বুড়িগঙ্গা রিভারভিউ',
     description: 'ফাইজার হঠাৎ পুরান ঢাকা ঘুরিয়ে সুলতান\'স ডাইনে বিরিয়ানি খাওয়ায় এবং সদরঘাট রিভারভিউতে আড্ডা দেয়।',
+    story: 'ফাইজার হঠাৎ একদিন বলল পুরান ঢাকা ঘুরে দেখাবে এবং খাওয়াবে! সেই সুবাদে সুলতান\'স ডাইনে ঐতিহ্যবাহী রাজকীয় বিরিয়ানি খাওয়া আর তারপর সদরঘাট রিভারভিউতে বসে বুড়িগঙ্গার বাতাসে গভীর রাতের আড্ডা।',
     year: 2023,
     category: 'hangout',
     location: 'পুরান ঢাকা, সুলতান\'স ডাইন ও সদরঘাট',
     companions: ['ফাইজার', 'সাঈদ (রাকিব)', 'পারভেজ'],
+    emotionTag: 'ভোজ ও আনন্দ',
     photos: [
       { id: 'p-8-1', driveId: '1Md2aO3f0u7OuEQAeBOt6SlDCdRvpYVVg', driveUrl: 'https://drive.google.com/file/d/1Md2aO3f0u7OuEQAeBOt6SlDCdRvpYVVg/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1Md2aO3f0u7OuEQAeBOt6SlDCdRvpYVVg') },
       { id: 'p-8-2', driveId: '1QyVM-H8Yi67R_Y-dFH_nZFxBk3-v_DdC', driveUrl: 'https://drive.google.com/file/d/1QyVM-H8Yi67R_Y-dFH_nZFxBk3-v_DdC/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1QyVM-H8Yi67R_Y-dFH_nZFxBk3-v_DdC') },
@@ -463,7 +542,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-9',
     title: 'জুনিয়র সায়ান্স অলিম্পিয়াড ২০২৩ এর অ্যালবাম',
+    subtitle: 'বিজ্ঞানের মঞ্চে অটুট বন্ধুত্ব',
     description: '২০২৩ সালের বিজ্ঞান উৎসবের জমকালো মুহূর্ত ও স্বেচ্ছাসেবক কার্যক্রম।',
+    story: 'বিজ্ঞানমনস্ক তরুণদের অলিম্পিয়াড আয়োজনে ব্যস্ত সময় পার করা, মঞ্চ সাজানো এবং সমাপনী সন্ধ্যায় পুরস্কার বিতরণী অনুষ্ঠানের দারুণ আমেজ।',
     year: 2023,
     category: 'olympiad',
     location: 'ঢাকা বিজ্ঞান উৎসব',
@@ -483,7 +564,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-10',
     title: 'অ্যাডা লাভলেস প্রোগ্রামিং কনটেস্ট ২০২২',
+    subtitle: 'মেধাবী নারীদের প্রোগ্রামিং অলিম্পিয়াড',
     description: 'প্রোগ্রামিং অলিম্পিয়াড প্রাঙ্গণে আনন্দের কিছু মুহূর্ত।',
+    story: 'অ্যাডা লাভলেস জাতীয় গার্লস প্রোগ্রামিং কনটেস্টের ভেন্যুতে আয়োজক ও স্বেচ্ছাসেবক টিমের সাথে কাজ করার দারুণ স্মৃতি।',
     year: 2022,
     category: 'olympiad',
     location: 'ইউআইইউ প্রাঙ্গণ',
@@ -494,8 +577,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-11',
-    title: 'মনির ভাইয়ের ছাদে ইফতার',
+    title: 'মনির ভাইয়ের ছাদে একদিন ইফতার',
+    subtitle: 'ছাদের মৃদু বাতাসে পবিত্র ইফতার',
     description: 'মনির ভাইয়ের সুসজ্জিত ছাদে ইফতারের সুস্বাদু আয়োজন ও পারিবারিক আড্ডা।',
+    story: 'রমজানের বিকেলে মনির ভাইয়ের সুসজ্জিত ছাদবাগানে সব ভাইয়েরা একসাথে ইফতারের দস্তরখান বিছিয়ে খেজুর ও শরবত মুখে দেওয়ার প্রশান্তিময় মুহূর্ত।',
     year: 2022,
     category: 'eid',
     location: 'মনির ভাইয়ের ছাদ',
@@ -506,8 +591,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-12',
-    title: '২০২৩ রমজানে সজিবের ছাদে ইফতার',
+    title: '২০২৩ সালের রমজানে সজিবের ছাদে ইফতার',
+    subtitle: 'খোলা আকাশের নিচে তারাবির রাতের আড্ডা',
     description: 'সজিবের বাসার ছাদে খোলা আকাশের নিচে রঙিন ইফতারের রাত।',
+    story: 'সজিবের বাসার ছাদে খোলা আকাশের নিচে ইফতারের ভোজ। ইফতারের পর তারাবির আগে ও পরে কুয়াশাচ্ছন্ন ছাদের ওপর বসে দীর্ঘ দিনলিপি নিয়ে কথা বলা।',
     year: 2023,
     category: 'eid',
     location: 'সজিবের বাসা',
@@ -522,13 +609,16 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-13',
-    title: '২০২৩ ঈদুল ফিতর গ্রামে ও নদীতে গোসল',
+    title: '২০২৩ ঈদুল ফিতর গ্রামে ও নদীতে সাঁতার',
+    subtitle: 'ফাইজার গ্রামে আসা ও নদীতে গোসল',
     description: 'ঈদে গ্রামে যাওয়া, নদীতে একসাথে গোসল করা, টিপু ও সাঈদের ঘোরাঘুরি এবং ফাইজার আমাদের গ্রামে ঘুরতে আসার অমলিন দৃশ্য।',
+    story: '২০২৩ সালের ঈদুল ফিতরে গ্রামে ছুটির আনন্দ। টিপু, সাঈদ ও পারভেজ গ্রামের পাশ দিয়ে বয়ে যাওয়া নদীতে একসাথে ঝাঁপ দিয়ে স্নান করা। সেই ঈদে ফাইজারও ঢাকা থেকে আমাদের গ্রামে ঘুরতে এসেছিল, যা ইদের আনন্দ দ্বিগুণ করে দিয়েছিল।',
     year: 2023,
     category: 'eid',
     location: 'গ্রামের বাড়ি ও নদী',
     featured: true,
     companions: ['টিপু', 'ফাইজার', 'সাঈদ (রাকিব)', 'পারভেজ'],
+    emotionTag: 'শৈশব অনুভূতি ও ঈদ',
     photos: [
       { id: 'p-13-1', driveId: '11cVXnZ3I62JIXh9f6f-gF5wEzJHg1Ph7', driveUrl: 'https://drive.google.com/file/d/11cVXnZ3I62JIXh9f6f-gF5wEzJHg1Ph7/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('11cVXnZ3I62JIXh9f6f-gF5wEzJHg1Ph7') },
       { id: 'p-13-2', driveId: '1JWrH_0FvAbATQTF6KH46qgpdBiJv58Qr', driveUrl: 'https://drive.google.com/file/d/1JWrH_0FvAbATQTF6KH46qgpdBiJv58Qr/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1JWrH_0FvAbATQTF6KH46qgpdBiJv58Qr') },
@@ -542,8 +632,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-14',
-    title: 'এসপিএসবি থেকে বইমেলা সফর',
+    title: 'এসপিএসবি (SPSB) থেকে বইমেলা সফর',
+    subtitle: 'বইয়ের সমারোহে বিজ্ঞান পরিবারের আড্ডা',
     description: 'SPSB টিমের সাথে বইমেলার প্রাঙ্গণে আড্ডা ও স্টল ঘোরাঘুরি।',
+    story: 'বিজ্ঞান জনপ্রিয়করণ সমিতির মেধা ও সাহিত্যপ্রেমী বন্ধুদের সাথে অমর একুশে বইমেলার প্রাঙ্গণে নতুন প্রকাশিত বই দেখা ও লেখক আড্ডার মিষ্টি সময়।',
     year: 2023,
     category: 'hangout',
     location: 'বাংলা একাডেমি ও সোহরাওয়ার্দী উদ্যান',
@@ -556,7 +648,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-15',
     title: 'অমর একুশে বইমেলা ও বাংলা একাডেমি',
+    subtitle: 'বইয়ের ঘ্রাণ ও সন্ধ্যার আড্ডা',
     description: 'বইয়ের ঘ্রাণ ও বাংলা একাডেমির মাঠে মিষ্টি আড্ডা।',
+    story: 'বাংলা একাডেমি ও সোহরাওয়ার্দী উদ্যানের বইমেলায় ফেব্রুয়ারি মাসের এক বিকেলে ঘুরে বেড়ানো। নতুন বই কিনে মাঠের ঘাসে বসে বন্ধুরা মিলে আলোচনা করার চিরন্তন স্মৃতি।',
     year: 2023,
     category: 'hangout',
     location: 'বইমেলা',
@@ -571,7 +665,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-16',
     title: 'প্রথম আলো কার্যালয়ে স্মরণীয় সময়',
+    subtitle: 'সাংবাদিকতা ও বন্ধুত্বের আড্ডা',
     description: 'প্রথম আলো ভবনে সৌজন্য সাক্ষাৎ ও আড্ডার মুহূর্ত।',
+    story: 'প্রথম আলো ভবনের কারওয়ান বাজার কার্যালয়ে যাওয়া এবং দেশের শীর্ষ সংবাদমাধ্যমের সুসজ্জিত অফিসে সুন্দর সময় কাটানো।',
     year: 2023,
     category: 'hangout',
     location: 'প্রথম আলো কার্যালয়, কারওয়ান বাজার',
@@ -583,7 +679,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-17',
     title: 'মেহেদি বিদেশ যাওয়ার আগে আমাদের শেষ আড্ডা',
+    subtitle: 'প্রবাসের শুভকামনা ও স্মৃতিবন্ধনী',
     description: 'মেহেদির বিদেশ যাওয়ার প্রাক্কালে শুভকামনা জানিয়ে তোলা স্মৃতির ফটো।',
+    story: 'মেহেদি বিদেশ রওয়ানা দেওয়ার ঠিক আগে আমরা সবাই ঢাকায় এক হয়ে শেষ বারের মতো আড্ডা দিই। দূরদেশে তাঁর সাফল্য ও সুস্বাস্থ্যের জন্য দোয়া করা হয়।',
     year: 2023,
     category: 'farewell',
     location: 'ঢাকা',
@@ -596,7 +694,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-18',
     title: 'এসপিএসবি (SPSB) স্বেচ্ছাসেবক স্মৃতি',
+    subtitle: 'বিজ্ঞান প্রসারের আনন্দধারা',
     description: 'বাংলাদেশ বিজ্ঞান জনপ্রিয়করণ সমিতি ও SPSB-র বিশেষ অনুষ্ঠান।',
+    story: 'বিজ্ঞানকে তরুণ প্রজন্মের কাছে পৌঁছে দেওয়ার স্বপ্নে গঠিত SPSB টিমের সাথে বহু কর্মশালা ও অলিম্পিয়াডের দিনরাত পরিশ্রমের সুন্দর স্মৃতি।',
     year: 2023,
     category: 'olympiad',
     location: 'ঢাকা',
@@ -609,7 +709,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-19',
     title: 'ইমরানের বিয়ে, গায়ে হলুদ ও বউভাত',
+    subtitle: 'হলুদ রঙের উৎসব ও বন্ধুদের আনন্দ ডানা',
     description: 'ইমরানের গায়ে হলুদ, আনন্দময় বরযাত্রা ও বউভাতের অবিস্মরণীয় মুহূর্ত।',
+    story: 'বন্ধু ইমরানের শুভ বিবাহ উৎসব! গায়ে হলুদের পাঞ্জাবি পরে নাচ-গান, বরযাত্রায় অংশগ্রহণ এবং সুস্বাদু বউভাতের আপ্যায়নে বন্ধুদের এক মিলনমেলা।',
     year: 2023,
     category: 'celebration',
     location: 'কমিউনিটি সেন্টার ও বাসা',
@@ -628,8 +730,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-20',
-    title: 'সোনাছড়ি ও বাতাকান্দি ভ্রমণ',
-    description: 'প্রকৃতির কোলে শান্ত নদী ও সবুজ সোনাছড়ি-বাতাকান্দির মনোরম দিন।',
+    title: 'সোনাছড়ি ও বাতাকান্দি সফর',
+    subtitle: 'সবুজে ঘেরা নদীর মোহনা',
+    description: 'সোনাছড়ি ঘুরতে যাওয়া ও বাতাকান্দি ঘুরতে যাওয়া।',
+    story: 'প্রকৃতির শান্ত নিবিড় পরিবেশে সোনাছড়ি ও বাতাকান্দির জল-হাওয়ায় সুন্দর একটি দিন কাটানো। নীল আকাশের নিচে সবুজ মেঠোপথে বন্ধুদের হেঁটে চলা।',
     year: 2023,
     category: 'travel',
     location: 'সোনাছড়ি ও বাতাকান্দি',
@@ -643,7 +747,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-21',
     title: 'হঠাৎ গ্রামের বাড়িতে কাটানো শান্ত সময়',
-    description: 'শহরের ব্যস্ততা ছেড়ে হঠাৎ গ্রামে গিয়ে নিজেদের সময় কাটানো।',
+    subtitle: 'মাটির গন্ধ ও মেঠোপথ',
+    description: 'হঠাৎ বাড়িতে যাওয়া ও পারিবারিক সুমধুর সময়।',
+    story: 'যান্ত্রিক শহরের কোলাহল ফেলে হঠাৎ একদিন নিজ গ্রামে ফেরা। মাটির গন্ধে ঘেরা প্রাঙ্গণে সাঈদ ও পারভেজের চা খাওয়া আর বাল্যকালের স্মৃতিরোমন্থন।',
     year: 2023,
     category: 'home',
     location: 'গ্রামের বাড়ি',
@@ -659,12 +765,15 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-22',
     title: 'কক্সবাজার-বান্দরবান সফর: আমাদের একসাথে সেরা সময়',
-    description: 'মেহেদি, তরিকুল, টিপু, সাঈদ ও পারভেজ। নীল সমুদ্র ও পাহাড়ি মেঘের রাজ্যে কাটানো আমাদের জীবনের সর্বশ্রেষ্ঠ স্বর্ণোজ্জ্বল সফর।',
+    subtitle: 'পাঁচ বন্ধুর একসাথে কাটানো সর্বশ্রেষ্ঠ স্বর্ণালী ট্রিপ',
+    description: 'কক্সবাজার বান্দরবান সফর এর সফরে মেহেদি তরিকুল টিপু আমি আর তুমি ছিলাম এটাই ছিল আমাদের এক সাথে সবচেয়ে ভাল সময় গুল।',
+    story: 'মেহেদি, তরিকুল, টিপু, সাঈদ ও পারভেজ। পাঁচজন ভাই একসাথে নীল সমুদ্রের ঢেউ আর বান্দরবানের মেঘঘেরা পাহাড়ে ঘুরে কাটিয়েছিলাম অবিশ্বাস্য দিনগুলো। পাহাড়ের চূড়ায় দাঁড়িয়ে সূর্যোদয় দেখা আর রাতে এক হয়ে আড্ডা দেওয়া—এটাই ছিল আমাদের একসাথে কাটানো জীবনের সেরা স্বর্ণোজ্জ্বল সময়!',
     year: 2023,
     category: 'travel',
     location: 'কক্সবাজার ও বান্দরবান',
     featured: true,
     companions: ['মেহেদি', 'তরিকুল', 'টিপু', 'সাঈদ (রাকিব)', 'পারভেজ'],
+    emotionTag: 'সর্বোচ্চ আনন্দের স্বর্ণযুগ',
     photos: [
       { id: 'p-22-1', driveId: '1cNXf2KuzZ45w7f2uh9SgvZKieiTxW7q4', driveUrl: 'https://drive.google.com/file/d/1cNXf2KuzZ45w7f2uh9SgvZKieiTxW7q4/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1cNXf2KuzZ45w7f2uh9SgvZKieiTxW7q4') },
       { id: 'p-22-2', driveId: '1JvV2rI7IrzSie_X6K13xiXG67QOJv2q9', driveUrl: 'https://drive.google.com/file/d/1JvV2rI7IrzSie_X6K13xiXG67QOJv2q9/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1JvV2rI7IrzSie_X6K13xiXG67QOJv2q9') },
@@ -685,8 +794,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-23',
-    title: 'শেরে বাংলা কৃষি বিশ্ববিদ্যালয়ে ঘুরে বেড়ানো',
-    description: 'সবুজ ক্যাম্পাসে ঘুরে বেড়ানো ও আড্ডা দেওয়ার সুমধুর স্মৃতি।',
+    title: 'শেরে বাংলা কৃষি বিশ্ববিদ্যালয় ভ্রমণ',
+    subtitle: 'সবুজ মাঠে স্বপ্নের ক্যাম্পাস ঘোরা',
+    description: 'শেরে বাংলা কৃষি বিশ্ববিদ্যালয়ে ঘুরতে যেয়ে।',
+    story: 'সবুজে ঘেরা কৃষি বিশ্ববিদ্যালয়ের বিশাল মাঠে ঘুরে বেড়ানো ও লেকের পাশে চমৎকার বিকালের সময় কাটানো।',
     year: 2022,
     category: 'academic',
     location: 'শেরে বাংলা কৃষি বিশ্ববিদ্যালয়',
@@ -696,8 +807,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-24',
-    title: 'জাতীয় বিজ্ঞান জাদুঘরে ঘোরাঘুরি',
-    description: 'বিজ্ঞান ও প্রযুক্তির প্রদর্শনী দেখতে বিজ্ঞান জাদুঘরে একদিন।',
+    title: 'জাতীয় বিজ্ঞান জাদুঘরে ঘোরার দিন',
+    subtitle: 'মহাকাশ ও বিজ্ঞান প্রদর্শনী',
+    description: 'বিজ্ঞান জাদুঘরে ঘুরতে যেয়ে।',
+    story: 'বিজ্ঞান জাদুঘরে গ্যালাক্সি, রোবোটিক্স ও প্রাচীন বৈজ্ঞানিক যন্ত্রাংশ দেখে কৌতুহলী চোখ নিয়ে বন্ধুদের হেঁটে চলার স্মৃতি।',
     year: 2022,
     category: 'hangout',
     location: 'জাতীয় বিজ্ঞান ও প্রযুক্তি জাদুঘর',
@@ -707,8 +820,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-25',
-    title: 'জাতীয় বোটানিক্যাল গার্ডেনে প্রকৃতির মাঝে',
-    description: 'সবুজে ঘেরা মিরপুর বোটানিক্যাল গার্ডেনে কাটে মনোরম বিকেল।',
+    title: 'জাতীয় বোটানিক্যাল গার্ডেন সফর',
+    subtitle: 'গাছগাছালির ছায়ায় প্রশান্তি',
+    description: 'বোটানিক্যাল গার্ডেন ঘুরতে যেয়ে।',
+    story: 'মিরপুর বোটানিক্যাল গার্ডেনের বিশাল গাছের ছায়ায় নিরিবিলি পথে হেঁটে বেড়ানো ও পাখির কিচিরমিচির শোনার শান্ত অপরাহ্ন।',
     year: 2022,
     category: 'travel',
     location: 'মিরপুর বোটানিক্যাল গার্ডেন',
@@ -718,8 +833,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-26',
-    title: 'ঐতিহাসিক সিলেট সফরের স্মৃতি',
-    description: 'চা বাগান, ঝরনা ও পুণ্যভূমি সিলেটের অবিস্মরণীয় ভ্রমণ।',
+    title: 'ঐতিহাসিক সিলেট সফর',
+    subtitle: 'শাহজালাল (র.) এর পুণ্যভূমি ও চা বাগান',
+    description: 'ঐতিহাসিক সিলেট সফরের স্মৃতি।',
+    story: 'পুণ্যভূমি সিলেটের হযরত শাহজালাল (র.) ও শাহ পরান (র.)-এর মাজার জিয়ারত এবং মাইলের পর মাইল বিস্তৃত চা বাগানের সবুজ সৌন্দর্য উপভোগ করার ঐতিহাসিক সফর।',
     year: 2023,
     category: 'travel',
     location: 'সিলেট',
@@ -734,8 +851,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-27',
-    title: 'কাঠালিয়া নদীর ব্রিজে কিছু সময়',
-    description: 'নদীর হাওয়ায় ব্রিজের ওপর বসে সন্ধ্যার নির্মল আড্ডা।',
+    title: 'কাঠালিয়া নদীর ব্রিজে মিষ্টি সময়',
+    subtitle: 'নদীর বাতাস ও শান্ত গোধূলি',
+    description: 'কাঠালিয়া নদীর ব্রিজে কিছু সময়।',
+    story: 'কাঠালিয়া নদীর ব্রিজে রেলিং ধরে দাঁড়িয়ে গোধূলির সূর্যাস্ত দেখা আর নদীর ঠাণ্ডা বাতাসে মনের কথা শেয়ার করা।',
     year: 2022,
     category: 'hangout',
     location: 'কাঠালিয়া নদী ব্রিজ',
@@ -745,8 +864,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-28',
-    title: 'টিপু বৌদির সাথে দেখা করতে এসে আমাদের আড্ডা',
-    description: 'টিপু ভাবীর সাথে সাক্ষাৎ শেষে বন্ধুদের ভালোবাসার ঝটিকা আড্ডা।',
+    title: 'টিপু বৌদির সাথে দেখা করতে এসে আমাদের সাথে আড্ডা',
+    subtitle: 'প্রেম ও বন্ধুত্বের যৌথ আনন্দ',
+    description: 'টিপু বৌদির সাথে দেখা করতে এসে আমাদের সাথে দেখা করে যায়।',
+    story: 'টিপু যখন বিশেষ কারো সাথে দেখা করতে ঢাকায় এলো, তখন সে আমাদের ভুলে যায়নি! দেখা করে এসে বন্ধুদের সাথে নিয়ে দারুণ খাবার আর আড্ডার দিন।',
     year: 2022,
     category: 'hangout',
     location: 'ঢাকা',
@@ -759,10 +880,12 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-29',
     title: '২০২২ গণিত অলিম্পিয়াড জাতীয় পর্ব',
-    description: 'গাণিতিক মেধার উৎসবে অংশগ্রহণ ও বাঁধভাঙা আনন্দ।',
+    subtitle: 'লজিক ও গাণিতিক উৎসব',
+    description: '২০২২ এর গণিত অলিম্পিয়াড এর জাতীয় পর্বে।',
+    story: 'জাতীয় গণিত অলিম্পিয়াডে অংশগ্রহণকারী তরুণদের অনুপ্রেরণা দেওয়া ও উৎসবের পুরো ভেন্যুতে ঘুরে স্মৃতিচিত্র ধারণ করা।',
     year: 2022,
     category: 'olympiad',
-    location: 'জাতীয় অলিম্পিয়াড প্রাঙ্গণ',
+    location: 'জাতীয় অলিম্পিয়াড কেন্দ্র',
     photos: [
       { id: 'p-29-1', driveId: '1y-FXmzvUNFZnZzUZOXyU0NUdkJjV2MD_', driveUrl: 'https://drive.google.com/file/d/1y-FXmzvUNFZnZzUZOXyU0NUdkJjV2MD_/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1y-FXmzvUNFZnZzUZOXyU0NUdkJjV2MD_') },
       { id: 'p-29-2', driveId: '1gNJBcps866sSQ83UWpnvAJVAjRswPqfN', driveUrl: 'https://drive.google.com/file/d/1gNJBcps866sSQ83UWpnvAJVAjRswPqfN/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1gNJBcps866sSQ83UWpnvAJVAjRswPqfN') },
@@ -770,8 +893,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-30',
-    title: 'গরুর মাংসের স্বাদে ফুফুর বাড়ি হঠাৎ প্ল্যান',
-    description: 'গরুর মাংস দিয়ে গরম ভাত খাওয়ার তীব্র ইচ্ছায় ফুফুর বাড়ি ভ্রমণের মিষ্টি ট্রিপ।',
+    title: 'গরুর মাংস দিয়ে ভাত খেতে ফুফুর বাড়ি হঠাৎ প্ল্যান',
+    subtitle: 'স্বাদ ও তৃপ্তির হঠাৎ সফর',
+    description: 'গরুর মাংস দিয়ে ভাত খেতে হঠাৎ প্ল্যান করে তোমার ফুফুর বাড়ি।',
+    story: 'হঠাৎ একদিন মুখে সুস্বাদু গরুর মাংসের স্বাদ নেওয়ার তীব্র লোভ তৈরি হওয়ায় সাঈদের ফুফুর বাড়ি যাওয়ার ঝটিকা সিদ্ধান্ত। ফুফুর হাতের গরম গরুর মাংস আর ভাত খেয়ে তৃপ্তির তৃপ্তি!।',
     year: 2022,
     category: 'hangout',
     location: 'ফুফুর বাসা',
@@ -781,11 +906,13 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-31',
-    title: 'ডেমরা রকমারি ফুচকা সমাচার',
-    description: 'ডেমরায় ঝাল-টক রকমারি ফুচকার দোকানে বন্ধুদের আড্ডা।',
+    title: 'ডেমরা রকমারি ফুচকা খোরদের মেলা',
+    subtitle: 'ঝাল টক মিষ্টি ফুচকার আনন্দ',
+    description: 'ডেমরা রকমারি ফুচকা খেতে।',
+    story: 'ডেমরায় রকমারি ফুচকার দোকানে বসে অতিরিক্ত ঝাল দেওয়া তেঁতুলের টক নিয়ে প্রতিযোগিতা ও হাসাহাসির মুহূর্ত।',
     year: 2022,
     category: 'hangout',
-    location: 'ডেমরা ফুচকা কর্নার',
+    location: 'ডেমরা ফুচকা শপ',
     photos: [
       { id: 'p-31-1', driveId: '1kDMrL0kEvC3bGRw5cMI7ufm8rZ8J_E0N', driveUrl: 'https://drive.google.com/file/d/1kDMrL0kEvC3bGRw5cMI7ufm8rZ8J_E0N/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1kDMrL0kEvC3bGRw5cMI7ufm8rZ8J_E0N') },
     ],
@@ -793,10 +920,12 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-32',
     title: 'জাহাঙ্গীরনগর বিশ্ববিদ্যালয় ভর্তি পরীক্ষা',
-    description: 'স্বপ্নের ক্যাম্পাসে ভর্তি পরীক্ষা দিতে যাওয়ার দিন ও লেকের পাড়ে আড্ডা।',
+    subtitle: 'লাল ইটের সবুজ ক্যাম্পাস ও পরীক্ষা',
+    description: 'জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ে ভর্তি পরীক্ষা দিতে যেয়ে।',
+    story: 'জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ের ভর্তি পরীক্ষার দিন। সবুজ ছায়ানিবিড় ক্যাম্পাসের লেকে অতিথি পাখি দেখা আর পরীক্ষার পর ঘাসের ওপর বসে বিশ্রাম।',
     year: 2022,
     category: 'academic',
-    location: 'জাহাঙ্গীরনগর বিশ্ববিদ্যালয়, সাভার',
+    location: 'জাহাঙ্গীরনগর বিশ্ববিদ্যালয়',
     photos: [
       { id: 'p-32-1', driveId: '1mPEeLSd1uxPODDfGCfLS4HrjJP7fe-sA', driveUrl: 'https://drive.google.com/file/d/1mPEeLSd1uxPODDfGCfLS4HrjJP7fe-sA/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1mPEeLSd1uxPODDfGCfLS4HrjJP7fe-sA') },
       { id: 'p-32-2', driveId: '1TUJLvZmXb3MU_3IK3G2yAuUwyHW_gb7q', driveUrl: 'https://drive.google.com/file/d/1TUJLvZmXb3MU_3IK3G2yAuUwyHW_gb7q/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1TUJLvZmXb3MU_3IK3G2yAuUwyHW_gb7q') },
@@ -804,8 +933,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-33',
-    title: 'শনির আখড়ায় স্পেশাল হালিম',
-    description: 'শনির আখড়ার বিখ্যাত হালিম খেতে যেয়ে বিকেল কাটানো।',
+    title: 'শনির আখড়ায় স্পেশাল হালিম উৎসব',
+    subtitle: 'বিকালে মাটির বাটিতে স্পেশাল হালিম',
+    description: 'শনির আখড়া হালিম খেতে যেয়ে।',
+    story: 'শনির আখড়ার বিখ্যাত হালিমের দোকানে মাটির পাত্রে খাঁটি খাসির মাংসের হালিম খাওয়ার অনাবিল আনন্দ।',
     year: 2022,
     category: 'hangout',
     location: 'শনির আখড়া',
@@ -815,8 +946,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-34',
-    title: 'ঢাকা বিশ্ববিদ্যালয় কার্জন হল ভ্রমণ',
-    description: 'লাল ইটের ঐতিহ্যবাহী কার্জন হলে সুন্দর সময় কাটানো।',
+    title: 'কার্জন হল ঢাকা বিশ্ববিদ্যালয় ভ্রমণ',
+    subtitle: 'ঐতিহ্যবাহী লাল বিল্ডিং ও বিজ্ঞান ভবন',
+    description: 'কার্জন হল ঘুরতে যেয়ে।',
+    story: 'ঢাকা বিশ্ববিদ্যালয়ের শতবর্ষের ঐতিহ্যবাহী কার্জন হলের লাল ইটের চত্বরে ছবি তোলা আর স্থাপত্যশৈলী দেখে মুগ্ধ হওয়ার সুন্দর মুহূর্ত।',
     year: 2022,
     category: 'academic',
     location: 'কার্জন হল, ঢাবি',
@@ -826,11 +959,13 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-35',
-    title: 'গুচ্ছ বিশ্ববিদ্যালয় ভর্তি পরীক্ষা উপলক্ষে খুলনা সফর',
-    description: 'ভর্তি পরীক্ষার সুবাদে সুন্দরবনের প্রবেশদ্বার খুলনায় দীর্ঘ পথচলা ও স্মৃতির রাত।',
+    title: 'গুচ্ছ ভর্তি পরীক্ষা দিতে খুলনা সফর',
+    subtitle: 'দক্ষিণাঞ্চলের খুলনা শহর সফর',
+    description: 'গুচ্ছ বিশ্ববিদ্যালয়ে ভর্তি পরীক্ষা দিতে খুলনা।',
+    story: 'গুচ্ছ ভর্তি পরীক্ষার জন্য খুলনায় লম্বা বাস ভ্রমণ। খুলনা বিশ্ববিদ্যালয় চত্বরে ঘুরে বেড়ানো এবং পরীক্ষার উত্তেজনা কাটিয়ে নতুন জেলা এক্সপ্লোর করা।',
     year: 2022,
     category: 'academic',
-    location: 'খুলনা বিশ্ববিদ্যালয় প্রাঙ্গণ',
+    location: 'খুলনা বিশ্ববিদ্যালয়',
     photos: [
       { id: 'p-35-1', driveId: '1ZtBBwNxu9n3_DgeRSd0BdGml76ibEiyR', driveUrl: 'https://drive.google.com/file/d/1ZtBBwNxu9n3_DgeRSd0BdGml76ibEiyR/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1ZtBBwNxu9n3_DgeRSd0BdGml76ibEiyR') },
       { id: 'p-35-2', driveId: '14ZvMfO-AL0qLIGpjwkUvT9D_DyOXUWlK', driveUrl: 'https://drive.google.com/file/d/14ZvMfO-AL0qLIGpjwkUvT9D_DyOXUWlK/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('14ZvMfO-AL0qLIGpjwkUvT9D_DyOXUWlK') },
@@ -841,8 +976,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-36',
-    title: 'জিহাদের দাওয়াতে বার্গার পার্টি',
-    description: 'জিহাদের আন্তরিক আমন্ত্রণে আড্ডা ও বার্গারের মুখরোচক আয়োজন।',
+    title: 'জিহাদের আমন্ত্রণে বার্গার খেতে যাওয়া',
+    subtitle: 'সুস্বাদু চিজ বার্গার ও ভাইদের আড্ডা',
+    description: 'জিহাদের আমন্ত্রনে বার্গার খেতে যাওয়া।',
+    story: 'জিহাদ ভাই আন্তরিকতার সাথে বার্গারের দাওয়াত দিলে সবাই রেস্টুরেন্টে গিয়ে জম্পেশ বার্গার ভোজ সারার মুহূর্ত।',
     year: 2022,
     category: 'hangout',
     location: 'বার্গার শপ',
@@ -854,8 +991,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-37',
-    title: 'টাঙ্গাইল ও মানিকগঞ্জ সড়ক ভ্রমণ',
-    description: 'বন্ধুদের একসাথে নতুন রাস্তা ও জেলা ভ্রমণে অবিস্মরণীয় পথচলা।',
+    title: 'টাঙ্গাইল ও মানিকগঞ্জ ঘোরাঘুরি',
+    subtitle: 'সড়ক পথে দূরপথের রোড ট্রিপ',
+    description: 'টাঙ্গাইল ও মানিকগঞ্জ ঘুরা ঘুরি।',
+    story: 'টাঙ্গাইলের পোড়াবাড়ীর চমচম খাওয়া আর মানিকগঞ্জের মেঠোপথে বাইক চালিয়ে প্রকৃতির ছায়ায় ঘুরে আসার স্মরণীয় রোডট্রিপ।',
     year: 2022,
     category: 'travel',
     location: 'টাঙ্গাইল ও মানিকগঞ্জ',
@@ -870,8 +1009,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-38',
-    title: 'হঠাৎ ঘরে একসাথে রান্না ও খাওয়া',
-    description: 'বাসায় নিজেদের হাতে স্পেশাল খানা রান্না করে সবাই একসাথে আড্ডা দিয়ে খাওয়া।',
+    title: 'হঠাৎ বাসায় রান্না করে সবাই মিলে খাওয়া',
+    subtitle: 'ঘরোয়া রান্না ও আন্তরিক পরিবেশন',
+    description: 'হটাত বসায় রান্না করে সবাই মিলে খাওয়া।',
+    story: 'বাইরে না খেয়ে বাসায় হঠাৎ চাল-ডাল আর মুরগির মাংস চড়িয়ে নিজেরা রান্না করে দস্তরখানে সবাই বসে খাওয়ার অনাবিল আনন্দ।',
     year: 2022,
     category: 'home',
     location: 'শনির আখড়া বাসা',
@@ -881,8 +1022,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-39',
-    title: 'পদ্মা নদী ভ্রমণ ও ইলিশের ভোজ',
-    description: 'বিশাল পদ্মার জলরাশিতে নৌকা ভ্রমণ ও পদ্মার তীরে নদীর তরতাজা মাছে তৃপ্তির ভোজ।',
+    title: 'পদ্মা নদী ভ্রমণ ও নদীর তীরের খানা',
+    subtitle: 'উত্তাল পদ্মা নদী ও মাওয়া ঘাট',
+    description: 'পদ্মা নদী ভ্রমণ ও খাওয়া দাওয়া।',
+    story: 'পদ্মা নদীর বুক চিরে ট্রলার চালানো আর মাওয়া ঘাটে সুস্বাদু ভাজা ইলিশ মাছের ভোজ নেওয়ার দারুণ দিন।',
     year: 2022,
     category: 'travel',
     location: 'পদ্মা সেতু প্রাঙ্গণ ও নদী',
@@ -895,8 +1038,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-40',
-    title: 'কায়াকিং অ্যাডভেঞ্চার শাড়িঘাট',
-    description: 'লালাখাল ও শাড়িঘাটের নীল-সবুজ স্বচ্ছ জলে কায়াকিংয়ের রোমাঞ্চকর অভিজ্ঞতা।',
+    title: 'কায়াকিং করতে শাড়িঘাট যাওয়া',
+    subtitle: 'স্বচ্ছ জলে কায়াক চালনার শিহরণ',
+    description: 'কায়াকিং করতে শারিঘাট যাওয়া।',
+    story: 'জাফলং ও শাড়িঘাটের নীল জলধারায় দুজন দুজন করে হালকা কায়াক চালিয়ে জলজ সৌন্দর্যে ডুবে থাকার শিহরণ জাগানো দিন।',
     year: 2023,
     category: 'travel',
     location: 'শাড়িঘাট, সিলেট',
@@ -909,8 +1054,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-41',
-    title: 'সিলেট সবুজ চা বাগান ও পর্যটন আড্ডা',
-    description: 'জাফলং, বিছানাকান্দি ও সিলেটের সবুজ চা বাগানের দিগন্ত বিস্তৃত সৌন্দর্যে বুঁদ হয়ে থাকার দিন।',
+    title: 'সিলেট চা বাগান ও জলপ্রপাত ভ্রমণ',
+    subtitle: 'চা পাতার সুবাস ও পাহাড়ি ঝরনা',
+    description: 'সিলেট ঘুরা ঘুরি।',
+    story: 'মালনীছড়া ও শ্রীমঙ্গলের চাবাগানের ঢালে হেঁটে বেড়ানো এবং পাহাড়ি ঝরনার ঠাণ্ডা জলে গা ভাসিয়ে পরম প্রশান্তি পাওয়ার দিন।',
     year: 2023,
     category: 'travel',
     location: 'সিলেট চা বাগান',
@@ -929,8 +1076,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-42',
-    title: 'মরিয়ম ফুচকার দোকানে চটপটি-ফুচকা',
-    description: 'মরিয়ম ফুচকা হাউসে স্পেশাল ফুচকা খাওয়ার আনন্দ।',
+    title: 'মরিয়ম ফুচকার দোকানে ফচকা খেতে যেয়ে',
+    subtitle: 'স্পেশাল ঝাল ফুচকার টেস্ট',
+    description: 'মরিয়ম ফুচকার দোকানে ফচকা খেতে যেয়ে।',
+    story: 'মরিয়ম ফুচকা কর্নারে বসে টক-ঝাল ফুচকা মুখে দিয়ে অতিরিক্ত ঝালের কারণে চোখে জল আর মুখে হাসির স্মৃতি।',
     year: 2022,
     category: 'hangout',
     location: 'মরিয়ম ফুচকা',
@@ -940,8 +1089,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-43',
-    title: 'শুক্রবার পবিত্র জুমার নামাজে যাওয়ার প্রাক্কালে',
-    description: 'পাঞ্জাবি-পায়জামা পরে এক মনোরম শুক্রবারের শান্ত মুহূর্তে।',
+    title: 'কোন এক শুক্রবার নামাজ পরতে যাওয়ার সময়',
+    subtitle: 'পাঞ্জাবি পরে জুমার নামাজের পথকথা',
+    description: 'কোন এক শুক্রবার নামাজ পরতে যাওয়ার সময়।',
+    story: 'কোনো এক স্নিগ্ধ শুক্রবার ইবাদতের উদ্দেশ্যে সুগন্ধি আতর মেখে ও সাদা পাঞ্জাবি পরে মসজিদের দিকে রওনা দেওয়ার পবিত্র মুহূর্ত।',
     year: 2022,
     category: 'eid',
     location: 'মসজিদ সড়ক',
@@ -952,8 +1103,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-44',
-    title: 'কাঠালিয়া নদীতে জলকেলি ও হাওয়া খাওয়া',
-    description: 'কাঠালিয়া নদীর মিষ্টি হাওয়ায় ভেসে বেড়ানোর অপরূপ দিন।',
+    title: 'কাঠালিয়া নদী তে জলকেলি',
+    subtitle: 'নদীর বুক চিরে আড্ডা',
+    description: 'কাঠালিয়া নদী তে।',
+    story: 'কাঠালিয়া নদীর প্রবাহমান জলে পা ডুবিয়ে বসে থাকা এবং বন্ধুদের সাথে শৈশবের স্মৃতিচারণ।',
     year: 2021,
     category: 'hangout',
     location: 'কাঠালিয়া নদী',
@@ -963,8 +1116,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-45',
-    title: 'টিপুর বাড়ির ছাদে বারবিকেউ পার্টি',
-    description: 'রাতের আঁধারে ধোঁয়া ওঠা বারবিকেউ চিকেন রান্না ও গানের আসর।',
+    title: 'টিপুর বাড়ীর ছাদে বারবিকিঊ পারটী',
+    subtitle: 'ধোঁয়া ওঠা চিকেন বারবিকিউ ও রাত',
+    description: 'টিপুর বাড়ীর ছাদে বারবিকিঊ পারটী।',
+    story: 'টিপুর বাড়ির ছাদে শীতের রাতে চারকোল পুড়িয়ে চিকেন বারবিকিউ তৈরি করার দারুণ আয়োজন। চারকোল আগুনের উনুনে হাত সেঁকা আর গভীর রাতের আড্ডা।',
     year: 2021,
     category: 'hangout',
     location: 'টিপুর বাসার ছাদ',
@@ -976,8 +1131,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-46',
-    title: 'ঈদের পরদিন বন্ধুদের রঙিন ফটোসেশন',
-    description: 'ঈদের নতুন পোশাকে সব বন্ধুরা মিলে একসাথে স্মৃতিময় ফটো তোলা।',
+    title: 'ইদের পরের দিন সবাই মিলে ফটো তোলা',
+    subtitle: 'ঈদের দ্বিতীয় দিনের সাজগোছ',
+    description: 'ইদের পরের দিন সবাই মিলে ফটো তোলা।',
+    story: 'ঈদের আমেজ তখনও কাটেনি! ঈদের পরদিন সুন্দর পোশাক পরে সবাই মিলে একসাথে মাঠের ধারে ফটোসেশন করা।',
     year: 2021,
     category: 'eid',
     location: 'জয়দেবপুর',
@@ -989,8 +1146,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-47',
-    title: 'ছোট নানার বাসায় পারিবারিক সফর',
-    description: 'ছোট নানার আপ্যায়ন ও স্নেহময় সুন্দর কিছু মুহূর্ত।',
+    title: 'তোমার ছোট নানার বাসায় পারিবারিক সফর',
+    subtitle: 'পারিবারিক আপ্যায়ন ও পরম স্নেহ',
+    description: 'তোমার ছোট নানার বাসায়।',
+    story: 'সাঈদের ছোট নানার বাসায় নিমন্ত্রণে যাওয়া। ছোট নানার পরম স্নেহ ও সুস্বাদু খাবারের আপ্যায়নে বিকেলের মিষ্টি সময়।',
     year: 2021,
     category: 'home',
     location: 'ছোট নানার বাসা',
@@ -1001,8 +1160,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-48',
-    title: 'সাগর স্যারের কোচিং বিদায় সংবর্ধনা',
-    description: 'শনির আখড়ায় কোচিংয়ের শেষ দিনে শিক্ষক ও সহপাঠীদের সাথে আবেগঘন বিদায় উৎসব।',
+    title: 'সাগর স্যারের কোচিং এর বিদায় অনুস্থানের দিন',
+    subtitle: 'আবেগঘন বিদায় সংবর্ধনা',
+    description: 'সাগর স্যারের কোচিং এর বিদায় অনুস্থানের দিন।',
+    story: 'শনির আখড়ায় সাগর স্যারের কোচিংয়ে দীর্ঘদিনের ক্লাসের ইতি টেনে বিদায় সংবর্ধনা অনুষ্ঠান। ফুল ও ক্রেস্ট দিয়ে স্যারকে শ্রদ্ধা জানানো এবং স্মৃতির অশ্রুসজল বিদায়।',
     year: 2019,
     category: 'academic',
     location: 'সাগর স্যারের কোচিং, শনির আখড়া',
@@ -1017,8 +1178,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-49',
-    title: 'জাতীয় জীববিজ্ঞান অলিম্পিয়াড পরীক্ষা',
-    description: 'জীববিজ্ঞান অলিম্পিয়াডের জাতীয় প্রতিযোগিতার প্রাঙ্গণে আনন্দমুখর অংশগ্রহণ।',
+    title: 'জাতীয় জীব বিজ্ঞান অলম্পিয়াড পরীক্ষা দিতে যেয়ে',
+    subtitle: 'জীববিজ্ঞানের অলিম্পিয়াড পরীক্ষা',
+    description: 'জাতীয় জীব বিজ্ঞান অলম্পিয়াড পরীক্ষা দিতে যেয়ে।',
+    story: 'জীববিজ্ঞান অলিম্পিয়াডের প্রাঙ্গণে উপস্থিত হয়ে কুইজ ও সমস্যার উত্তর দেওয়ার প্রতিযোগিতামূলক মানসিকতা নিয়ে কাটানো দিন।',
     year: 2021,
     category: 'olympiad',
     location: 'পরীক্ষা কেন্দ্র, ঢাকা',
@@ -1031,8 +1194,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-50',
-    title: 'জিহাদের ভাইয়ের বিয়ে ও বোনের বাসায় সফর',
-    description: 'জিহাদের বড় ভাইয়ের চমৎকার বিয়ের অনুষ্ঠান ও বোনের মিষ্টি মিষ্টি দাওয়াত।',
+    title: 'জিহাদের বাইয়ের বিয়েতে যেয়ে ও বোনের বাসায় ঘুরতে যাওয়া',
+    subtitle: 'বিয়ের সাজ ও আত্মীয়ের আপ্যায়ন',
+    description: 'জিহাদের বাইয়ের বিয়েতে যেয়ে ও পাশা পাশি বোনের বাসায় ঘুরতে যাওয়া।',
+    story: 'জিহাদের বড় ভাইয়ের চমৎকার বিয়ের অনুষ্ঠানে গায়ে সুন্দর পোশাক পরে যাওয়া এবং সেখান থেকে বোনের বাসায় নিমন্ত্রণে গিয়ে সময় কাটানো।',
     year: 2021,
     category: 'celebration',
     location: 'কমিউনিটি সেন্টার ও বোনের বাসা',
@@ -1047,8 +1212,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-51',
-    title: 'কাঁঠালিয়া নদীর পাড়ে শান্ত মুহূর্ত',
-    description: 'নদীর শান্ত বাতাসে বসার মিষ্টি সময়।',
+    title: 'কাঁঠালিয়া নদী তীরের দিন',
+    subtitle: 'নদীর বাতাসে স্নিগ্ধ আড্ডা',
+    description: 'কাঁঠালিয়া নদী।',
+    story: 'কাঁঠালিয়া নদীর পাড়ে বসে গোধূলির সূর্যাস্ত দেখতে দেখতে জীবনের কতশত না-বলা বিষয় নিয়ে কথা বলা।',
     year: 2021,
     category: 'hangout',
     location: 'কাঁঠালিয়া নদী পাড়',
@@ -1059,8 +1226,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-52',
-    title: 'বইমেলা ও ঢাকা বিশ্ববিদ্যালয় প্রাঙ্গণ',
-    description: 'বইমেলা থেকে ঢাবির টিএসসি ও ক্যাম্পাসে অবিরাম হেঁটে বেড়ানো।',
+    title: 'বই মেলায় ঘুরতে জাওয় ও ঢাকা বিসব্যবিধালয় ঘুরা',
+    subtitle: 'টিএসসি ও কার্জন হল চত্বর',
+    description: 'বই মেলায় ঘুরতে জাওয় ও ঢাকা বিসব্যবিধালয় ঘুরা।',
+    story: 'বইমেলার প্রতিটি স্টল ঘুরে নতুন বই কেনা আর বইমেলা থেকে বের হয়ে রাতে ঢাকা বিশ্ববিদ্যালয়ের ঐতিহাসিক টিএসসি প্রাঙ্গণে বসে আড্ডা দেওয়া।',
     year: 2021,
     category: 'hangout',
     location: 'ঢাকা বিশ্ববিদ্যালয় ও বইমেলা',
@@ -1074,8 +1243,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-53',
-    title: 'সাগর স্যারের কোচিং ক্লাসের মুহূর্ত',
-    description: 'শনির আখড়ায় পড়ালেখার ফাঁকে আনন্দময় সব আড্ডা।',
+    title: 'সাগর স্যারের কোচং এর কিছু স্রিতি',
+    subtitle: 'শনির আখড়ায় পড়ালেখার সোনালী দিন',
+    description: 'সাগর স্যারের কোচং এর কিছু স্রিতি।',
+    story: 'শনির আখড়ায় সাগর স্যারের পদার্থবিজ্ঞান ও গণিতের বিশেষ ক্লাসের দিনগুলো। পড়ালেখার মাঝে স্যারের স্নেহ ও বন্ধুদের খুনসুটির স্মৃতি।',
     year: 2018,
     category: 'academic',
     location: 'সাগর স্যারের কোচিং',
@@ -1086,8 +1257,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-54',
-    title: 'আন্তর্জাতিক বাণিজ্য মেলায় ঘোরাঘুরি',
-    description: 'পূর্বাচলে বাণিজ্য মেলা দেখতে যাওয়ার ঝলমলে অভিজ্ঞতা।',
+    title: 'বাণিজ্য মেলায় ঘুরতে যাওয়া',
+    subtitle: 'রঙিন আলো ও মেলার ভিড়',
+    description: 'বাণিজ্য মেলায় ঘুরতে যাওয়া।',
+    story: 'আন্তর্জাতিক বাণিজ্য মেলায় আলোকসজ্জিত প্যাভিলিয়ন ঘুরে দেখা আর আইসক্রিম হাতে বন্ধুদের হেঁটে চলার ঝলমলে আড্ডা।',
     year: 2019,
     category: 'hangout',
     location: 'বাণিজ্য মেলা প্রাঙ্গণ',
@@ -1097,13 +1270,16 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-55',
-    title: 'লিমনের মায়ের চল্লিশায় মানিকগঞ্জ সফর ও আলুপরোটার গল্প',
-    description: 'মানিকগঞ্জ যাওয়ার আগের রাতে সাঈদের বাসায় আলুপরোটা বানানো এবং মানিকগঞ্জ থেকে ফেরার পথে ভিজে কাপড়ে তীব্র শীতে কাঁপতে কাঁপতে ফেরার স্মরণীয় গল্প।',
+    title: 'লিমনের মায়ের চল্লিশায় মানিকগঞ্জ সফর ও আলু পরাটার গল্প',
+    subtitle: 'আগের রাতে আলু পরোটা ও ফেরার পথে ভিজে শীতে কাঁপাকাঁপি',
+    description: 'লিমনের মায়ের চল্লিশায় মানিকগঞ্জ ঘুরতে যাওয়া যাওয়ার আগের রাতে সাইদের বাসায় আলু পরাটা বানানর গল্প ও মানিকগঞ্জ থেকে আসার সময় ভিজা কাপরে শিতের কবলে পরার গল্প।',
+    story: 'লিমনের মায়ের চল্লিশার জন্য মানিকগঞ্জ রওয়ানা হওয়ার আগের রাতে সাঈদের বাসায় সবাই মিলে আলু পরোটা বানানোর মজার ঘটনা! এরপর মানিকগঞ্জ থেকে ফেরার পথে হঠাৎ বৃষ্টিতে জামাকাপড় একদম ভিজে যায় এবং কনকনে ঠাণ্ডা শীতে কাঁপতে কাঁপতে ফেরার সেই অবিস্মরণীয় গল্প, যা আজও সবাই স্মরণ করে হাসে।',
     year: 2019,
     category: 'travel',
     location: 'মানিকগঞ্জ',
     featured: true,
     companions: ['লিমন', 'সাঈদ (রাকিব)', 'পারভেজ'],
+    emotionTag: 'অবিস্মরণীয় মজার গল্প',
     photos: [
       { id: 'p-55-1', driveId: '1dWLuVI2e0xiAnzsa_gl96B0RxX0ovRuq', driveUrl: 'https://drive.google.com/file/d/1dWLuVI2e0xiAnzsa_gl96B0RxX0ovRuq/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1dWLuVI2e0xiAnzsa_gl96B0RxX0ovRuq') },
       { id: 'p-55-2', driveId: '1mPeiWt0rISGy5OpxMmI1_Sx3QIdJupgz', driveUrl: 'https://drive.google.com/file/d/1mPeiWt0rISGy5OpxMmI1_Sx3QIdJupgz/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1mPeiWt0rISGy5OpxMmI1_Sx3QIdJupgz') },
@@ -1122,7 +1298,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-56',
     title: 'সাকিব বিদেশ যাওয়ার আগে লালবাগ কেল্লা সফর',
-    description: 'সাকিব বিদেশ যাওয়ার পূর্বে ঢাকায় এলে তাকে নিয়ে লালবাগ কেল্লার লাল ইটের প্রাসাদে ঘোরাঘুরি।',
+    subtitle: 'ঐতিহাসিক দুর্গে সাকিবের বিদায় সংবর্ধনা',
+    description: 'সাকিব বিদেশ যাওয়ার আগে যখন ঢাকা আসে তাকে নিয়ে লালবাগ ঘুরা।',
+    story: 'সাকিব বিদেশ পাড়ি জমানোর পূর্বে ঢাকায় আমাদের সাথে দেখা করতে আসে। তাঁকা নিয়ে পুরান ঢাকার ঐতিহাসিক লালবাগ কেল্লা ঘুরে দেখা এবং দুর্গের চত্বরে স্মরণীয় ফটো তোলা।',
     year: 2019,
     category: 'farewell',
     location: 'লালবাগ কেল্লা, পুরান ঢাকা',
@@ -1137,8 +1315,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-57',
-    title: 'তোমার শনির আখড়ার বাসায় কাটে সোনালী বিকেল',
-    description: 'শনির আখড়ার ঘরে বই পড়া, গল্প করা ও হাসাহাসি।',
+    title: 'তোমার শনির আখড়া বাসায় কাটে সোনালী দিন',
+    subtitle: 'ঘরের ভেতরের অকৃত্রিম আড্ডা',
+    description: 'তোমার শনির আখড়া বাসায়।',
+    story: 'শনির আখড়ায় সাঈদের বাসায় একসাথে চা খাওয়া, গল্পের আসর জমানো ও ভবিষ্যৎ জীবনের কত শত পরিকল্পনা আঁকার মিষ্টি স্মৃতি।',
     year: 2018,
     category: 'home',
     location: 'শনির আখড়া বাসা',
@@ -1148,8 +1328,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-58',
-    title: 'হঠাৎ পুরান ঢাকা বিরিয়ানি যাত্রা',
-    description: 'ক্ষুধার পেটে হঠাৎ সিদ্ধান্ত নিয়ে পুরান ঢাকায় গিয়ে খাঁটি বিরিয়ানির স্বাদ নেওয়া।',
+    title: 'হটাত পুরান ঢাকা বিরিয়ানি খেতে যাওয়া',
+    subtitle: 'গভীর রাতে পুরান ঢাকার বিরিয়ানি ভোজ',
+    description: 'হটাত পুরান ঢাকা বিরিয়ানি খেতে যাওয়া।',
+    story: 'হঠাৎ মাঝরাতে ক্ষুধা লাগলে পুরান ঢাকার ঐতিহ্যবাহী বিরিয়ানির দোকানে গিয়ে গরম গরম বিরিয়ানি আর বোরহানি খাওয়ার আনন্দ।',
     year: 2019,
     category: 'hangout',
     location: 'পুরান ঢাকা বিরিয়ানি হাউজ',
@@ -1160,8 +1342,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-59',
-    title: 'ভূইঘর হেঁটে যাওয়া ও লেকের পাড়ে বসে থাকা',
-    description: 'হেঁটে হেঁটে ভূইঘর যাওয়া ও খোলা আকাশের নিচে ঘণ্টার পর ঘণ্টা কথা বলা।',
+    title: 'ভুইঘর হেটে যাওয়া ও বসে কিছু সময় পার',
+    subtitle: 'দীর্ঘ পথ হেঁটে শান্ত বিকেলে আড্ডা',
+    description: 'ভুইঘর হেটে যাওয়া ও বসে কিছু সময় পার।',
+    story: 'হাঁটতে হাঁটতে শনির আখড়া থেকে ভূইঘর পর্যন্ত যাওয়া এবং সেখানে লেকের পাড়ে বসে নিরিবিলিতে ঘণ্টার পর ঘণ্টা কথা বলা।',
     year: 2019,
     category: 'hangout',
     location: 'ভূইঘর',
@@ -1173,8 +1357,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-60',
-    title: 'দি ওয়ান রেস্টুরেন্টে কিছু রঙিন সময়',
-    description: 'দি ওয়ান রেস্টুরেন্টের চমৎকার পরিবেশ ও বন্ধুদের হাসিমুখ।',
+    title: 'দি ওয়ান রেস্টুরেন্টে কিছু সময়',
+    subtitle: 'আমাদের পছন্দের ক্যাফে রেস্টুরেন্ট',
+    description: 'দি ওয়ান রেস্টুরেন্টে কিছু সময়।',
+    story: 'দি ওয়ান রেস্টুরেন্টে বসে প্রিয় স্ন্যাকস আর কফি দিয়ে বিকালের মিষ্টি আলাপচারিতা।',
     year: 2019,
     category: 'hangout',
     location: 'দি ওয়ান রেস্টুরেন্ট',
@@ -1185,8 +1371,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-61',
-    title: 'সাগর স্যারকে বাসায় দাওয়াত ও ঘোরাঘুরি',
-    description: 'সাগর স্যারকে শ্রদ্ধার সাথে বাসায় দাওয়াত দেওয়া এবং বাইরে চমৎকার সময় কাটানো।',
+    title: 'সাগর স্যার কে বাসায় দাওয়াত করে আনা ও তার সাথে ঘুরাঘুরি',
+    subtitle: 'শিক্ষকের সান্নিধ্যে ঘরের ভোজ',
+    description: 'সাগর স্যার কে বাসায় দাওয়াত করে আনা ও তার সাথে ঘুরাঘুরি।',
+    story: 'শ্রদ্ধেয় সাগর স্যারকে আন্তরিকভাবে বাসায় দাওয়াত দেওয়া। নিজেরা স্যারকে আন্তরিক আপ্যায়ন করা এবং খাওয়া শেষে স্যারকে সাথে নিয়ে শহরে ঘুরে বেড়ানো।',
     year: 2019,
     category: 'academic',
     location: 'বাসা ও শহর',
@@ -1205,8 +1393,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-62',
-    title: 'আলিফের জন্মদিনের জমকালো রাত',
-    description: 'ছোট্ট আলিফের কেক কাটা ও আনন্দ উদযাপনের দিন।',
+    title: 'আলিফের জন্মদিনের দিন',
+    subtitle: 'ছোট্ট সোনা আলিফের কেক কাটার আনন্দ',
+    description: 'আলিফের জন্মদিনের দিন।',
+    story: 'ছোট্ট আলিফের জন্মদিনে মোমবাতি জ্বালিয়ে কেক কাটা, হাসাহাসি ও রঙিন বেলুন দিয়ে ঘর সাজানোর মিষ্টি সময়।',
     year: 2019,
     category: 'celebration',
     location: 'বাসা',
@@ -1219,13 +1409,16 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-63',
-    title: 'পারভেজ, সাঈদ ও তরিকুল মিলে ঘরে স্পেশাল বিরিয়ানি রান্না',
-    description: 'হঠাৎ সিদ্ধান্ত নিয়ে তিনজন মিলে চাল-মাংস ধুয়ে চুলায় সুস্বাদু বিরিয়ানি রান্নার গল্প।',
+    title: 'হটাট একদিন বাসায় আমি সাইদ ও তরিকুল মিলে বিরিয়ানি রান্না',
+    subtitle: 'তিন ভাইয়ের বিরিয়ানির হাঁড়ি চড়ানো',
+    description: 'হটাট একদিন বাসায় আমি সাইদ ও তরিকুল মিলে বিরিয়ানি রান্না।',
+    story: 'হঠাৎ একদিন তিন ভাই (পারভেজ, সাঈদ ও তরিকুল) সিদ্ধান্ত নিই বাইরে থেকে না কিনে ঘরে বিরিয়ানি রাঁধব! পেঁয়াজ কাটা থেকে মাংসের মশলা কষিয়ে ধোঁয়া ওঠা বিরিয়ানি তৈরি করার স্মৃতি আজ অমলিন।',
     year: 2019,
     category: 'home',
     location: 'শনির আখড়া রান্নাঘর',
     featured: true,
     companions: ['পারভেজ', 'সাঈদ (রাকিব)', 'তরিকুল'],
+    emotionTag: 'ঘরোয়া রান্না ও ভ্রাতৃত্ব',
     photos: [
       { id: 'p-63-1', driveId: '1BW_UQ1D16_zBPD6ssfJLxgBcbMPmOMkS', driveUrl: 'https://drive.google.com/file/d/1BW_UQ1D16_zBPD6ssfJLxgBcbMPmOMkS/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1BW_UQ1D16_zBPD6ssfJLxgBcbMPmOMkS') },
       { id: 'p-63-2', driveId: '1ivwo1PN8rq2DXpWdlH6ZmgeVYFw7VQZz', driveUrl: 'https://drive.google.com/file/d/1ivwo1PN8rq2DXpWdlH6ZmgeVYFw7VQZz/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1ivwo1PN8rq2DXpWdlH6ZmgeVYFw7VQZz') },
@@ -1235,8 +1428,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-64',
-    title: 'নওশিন হওয়ার পর আমি ও তুমি মিলে বাড়িতে সফর',
-    description: 'ছোট্ট নওশিন হওয়ার সুসংবাদে দুজন মিলে আনন্দ মনে গ্রামের বাড়িতে সফর।',
+    title: 'নওশিন হওয়ার পর আমি আর তুমি মিলে বাড়ীতে সফর',
+    subtitle: 'নতুন অতিথির আগমনে আনন্দ যাত্রা',
+    description: 'নওশিন হওয়ার পর আমি আর তুমি মিলে বাড়ীতে সফর।',
+    story: 'পরিবারে ছোট্ট সোনা নওশিনের জন্ম হওয়ার সুসংবাদে আনন্দিত হয়ে সাঈদ ও পারভেজ দুজন মিলে সাথে সাথে গ্রামের বাড়িতে ছুটে যাওয়ার আনন্দঘন ট্রিপ।',
     year: 2019,
     category: 'home',
     location: 'গ্রামের বাড়ি',
@@ -1248,8 +1443,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-65',
-    title: 'দি ওয়ান রেস্টুরেন্টে পারভেজ, সাঈদ, জিহাদ ও সামসুদ্দিন',
-    description: 'চার বন্ধু মিলে দি ওয়ান রেস্টুরেন্টে খাবার খাওয়া ও দীর্ঘ আড্ডা।',
+    title: 'দি ওয়ান রেস্টুরেন্টে আমি তুমি জিহাদ ও সামসুদ্দিন',
+    subtitle: 'চার বন্ধুর আড্ডার টেবিল',
+    description: 'দি ওয়ান রেস্টুরেন্টে কিছু সময় আমি তুমি জিহাদ ও সামসুদ্দিন ছিল।',
+    story: 'পারভেজ, সাঈদ, জিহাদ ও সামসুদ্দিন—চার ভাই মিলে দি ওয়ান রেস্টুরেন্টে সান্ধ্যকালীন নাস্তা খাওয়া আর গল্প করা।',
     year: 2019,
     category: 'hangout',
     location: 'দি ওয়ান রেস্টুরেন্ট',
@@ -1262,8 +1459,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-66',
-    title: 'পানাম সিটি ও সোনারগাঁও ঐতিহাসিক সফর',
-    description: 'প্রাচীন রাজপথ পানাম সিটির ঐতিহাসিক অট্টালিকা ও সোনারগাঁও জাদুঘরে কাটানো স্মরণীয় দিন।',
+    title: 'পনাম সিটি ও সোনারগাঁও ঘুরতে যাওয়ার',
+    subtitle: 'ঐতিহাসিক প্রাচীন রাজপথ ও জাদুঘর',
+    description: 'পনাম সিটি ও সোনারগাঁও ঘুরতে যাওয়ার।',
+    story: 'সোনারগাঁও লোকশিল্প জাদুঘর দেখা আর সেখান থেকে প্রাচীন হারানো নগরী পানাম সিটির লাল ইটের ঐতিহাসিক অট্টালিকার মাঝখান দিয়ে সাঈদ ও পারভেজের হেঁটে বেড়ানোর স্বপ্নিল স্মৃতি।',
     year: 2018,
     category: 'travel',
     location: 'পানাম সিটি ও সোনারগাঁও',
@@ -1283,8 +1482,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-67',
-    title: 'ওয়াপদার পার নীল বাতাসে ভ্রমণ',
-    description: 'ওয়াপদার পাড়ে মুক্ত হাওয়া উপভোগের বিকেল।',
+    title: 'উয়াপদার পার ঘুরতে যাওয়া',
+    subtitle: 'নদীর তীরে স্নিগ্ধ হাওয়া',
+    description: 'উয়াপদার পার ঘুরতে যাওয়া।',
+    story: 'ওয়াপদার পাড়ে মেঠোপথে হেঁটে যাওয়া এবং নদীর ধারের বাতাসে মন জুড়িয়ে নেওয়ার বিকেলের ট্রিপ।',
     year: 2018,
     category: 'hangout',
     location: 'ওয়াপদার পার',
@@ -1295,8 +1496,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-68',
-    title: 'শনির আখড়ায় দুষ্টুমি ও পাগলামো',
-    description: 'শনির আখড়ার অলিগলিতে বন্ধুদের নির্ভেজাল হাসি ও পাগলামোর দৃশ্য।',
+    title: 'শনির আখড়া পাগলামো',
+    subtitle: 'রাস্তায় হেঁটে হেঁটে নির্ভেজাল হাসাহাসি',
+    description: 'শনির আখড়া পাগলামো।',
+    story: 'শনির আখড়ার অলিগলিতে হেঁটে কোনো কারণ ছাড়াই বন্ধুদের পাগলামো ও বাঁধভাঙা হাসাহাসি করার চিরন্তনী দৃশ্য।',
     year: 2018,
     category: 'hangout',
     location: 'শনির আখড়া',
@@ -1307,12 +1510,14 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-69',
-    title: 'সাগর স্যারের স্পেশাল ট্রিট',
-    description: 'সাগর স্যারের পক্ষ থেকে শিষ্যদের চমৎকার খাবারের আপ্যায়ন।',
+    title: 'সাগর স্যার এর ট্রিট',
+    subtitle: 'স্যারের ভালোবাসার স্পেশাল ট্রিট',
+    description: 'সাগর স্যার এর ট্রিট।',
+    story: 'সাগর স্যার তাঁর প্রিয় দুই ছাত্র সাঈদ ও পারভেজকে রেস্টুরেন্টে স্পেশাল ট্রিট দেওয়ার পর তোলা অবিস্মরণীয় আনন্দচিত্র।',
     year: 2018,
     category: 'academic',
     location: 'রেস্টুরেন্ট',
-    companions: ['সাগর স্যার', 'সাঈদ (রাকিব)', 'পারভেজ'],
+    companions: ['সাগর স্যার', 'সাঈদ (রাکিব)', 'পারভেজ'],
     photos: [
       { id: 'p-69-1', driveId: '1m3QSv0DKr2wv87HJKfAwa2cIKPl3gvRz', driveUrl: 'https://drive.google.com/file/d/1m3QSv0DKr2wv87HJKfAwa2cIKPl3gvRz/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1m3QSv0DKr2wv87HJKfAwa2cIKPl3gvRz') },
       { id: 'p-69-2', driveId: '12GwTmvMOatedGSVUU30GVf7SCUyteIRD', driveUrl: 'https://drive.google.com/file/d/12GwTmvMOatedGSVUU30GVf7SCUyteIRD/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('12GwTmvMOatedGSVUU30GVf7SCUyteIRD') },
@@ -1321,8 +1526,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-70',
-    title: 'বাসায় নুডুলস রান্না ও দুষ্টুমি',
-    description: 'গভীর রাতে বাসায় নুডুলস ফুটিয়ে বন্ধুদের সাথে পেটপুজো।',
+    title: 'বাসায় নুডুলস রান্না ও পাগলামো',
+    subtitle: 'গভীর রাতের ব্যাচেলর কিচেন',
+    description: 'বাসায় নুদলস রান্না ও পাগলামো।',
+    story: 'গভীর রাতে পেট চুঁচুঁ করলে কিচেনে ঢুকে ডিম দিয়ে ইন্সট্যান্ট নুডুলস রান্না করে খাওয়া এবং চুলায় সসপ্যান বসানোর মুহূর্ত।',
     year: 2018,
     category: 'home',
     location: 'বাসা',
@@ -1333,8 +1540,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-71',
-    title: 'দি ওয়ান রেস্টুরেন্ট সমাচার',
-    description: 'দি ওয়ান রেস্টুরেন্টের নিয়মিত টেবিল আড্ডা।',
+    title: 'দি ওয়ান সমাচার',
+    subtitle: 'আমাদের মিলনমেলা ও নিয়মিত আড্ডা',
+    description: 'দি ওয়ান সমাচার।',
+    story: 'দি ওয়ান রেস্টুরেন্টের সেই পরিচিত কর্নারের টেবিলে বসে নিয়মিত বিকেলের কোল্ড কফি ও বন্ধুদের অন্তহীন আড্ডা।',
     year: 2018,
     category: 'hangout',
     location: 'দি ওয়ান রেস্টুরেন্ট',
@@ -1346,8 +1555,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-72',
-    title: 'শনির আখড়ার ফুটপাতে বসে রাতের আড্ডা',
-    description: 'শনির আখড়ার রাস্তায় নিরিবিলি বসে জীবনের সুখ-দুঃখের গল্প শেয়ার করা।',
+    title: 'শনির আখড়ার রাস্তায় বসে আড্ডা গল্প',
+    subtitle: 'ফুটপাতে বসে নিশিআড্ডা',
+    description: 'শনির আখার রাস্তায় বসে আড্ডা গল্প।',
+    story: 'শনির আখড়ার নিরিবিলি রাস্তার ধারে বসে হালকা হাওয়ায় রাতের নীরবতায় দুজনে জীবনের কতশত গভীর কথামালা বিনিময় করা।',
     year: 2018,
     category: 'hangout',
     location: 'শনির আখড়া রাস্তা',
@@ -1358,8 +1569,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-73',
-    title: 'ঈদের পর আমাদের বাড়ি থেকে হোমনা ও লটটা রোড ট্রিপ',
-    description: 'ঈদের আনন্দের পর নিজেদের বাড়ি থেকে বাইক ও গাড়ি নিয়ে হোমনা থেকে ঘুরতে ঘুরতে লটটা পর্যন্ত দীর্ঘ অ্যাডভেঞ্চার।',
+    title: 'ঈদ এর পর আমরা আমাদের বাড়ি থেকে ঘুরা শুরু করে হোমনা থেকে ঘুরতে ঘুরতে লটটা গেছিলাম',
+    subtitle: 'হোমনা থেকে লটটা রোড ট্রিপ',
+    description: 'ঈদ এর পর আমরা আমাদের বাড়ি থেকে ঘুরা শুরু করে হোমনা থেকে ঘুরতে ঘুরতে লটটা গেছিলাম।',
+    story: 'ঈদের পর নিজ বাড়ি থেকে ঘুরতে ঘুরতে হোমনা আর সেখান থেকে আঁকাবাঁকা সবুজ গ্রামীণ সড়ক দিয়ে লটটা পর্যন্ত দীর্ঘ বাইক ট্রিপ। পুরোটা পথ খোলা হাওয়ায় বন্ধুদের গান গাইতে গাইতে ঘুরে বেড়ানো।',
     year: 2018,
     category: 'travel',
     location: 'হোমনা থেকে লটটা',
@@ -1379,8 +1592,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-74',
-    title: 'মরিয়ম ফুচকা হাউসে বিকেলের আড্ডা',
-    description: 'মরিয়ম ফুচকার আড্ডার স্মৃতি।',
+    title: 'মরিয়ম ফুচকা',
+    subtitle: 'সন্ধ্যার মিষ্টি চটপটি খোররা',
+    description: 'মরিয়ম ফুচকা।',
+    story: 'মরিয়ম ফুচকার দোকানে বন্ধুদের ছোটখাটো ট্রিট দেওয়ার অমলিন ছবি।',
     year: 2018,
     category: 'hangout',
     location: 'মরিয়ম ফুচকা',
@@ -1392,8 +1607,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-75',
-    title: 'জুস সমাচার: ঠান্ডা ফলের জুসের রিফ্রেশমেন্ট',
-    description: 'তীব্র গরমে ঠান্ডা ফলের জুস হাতে বন্ধুদের রিফ্রেশিং আড্ডা।',
+    title: 'জুস সমাচার',
+    subtitle: 'ঠান্ডা ম্যাঙ্গো ও অরেঞ্জ জুসের আড্ডা',
+    description: 'জুস সমাচার।',
+    story: 'তীব্র গরমের মধ্যে কাচের গ্লাসে বরফ কুচি দেওয়া ফলের জুস খেয়ে আড্ডা দেওয়ার রিফ্রেশিং মুহূর্ত।',
     year: 2018,
     category: 'hangout',
     location: 'জুস কর্নার',
@@ -1405,8 +1622,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-76',
-    title: 'সূর্য বানু হোটেলে সাশ্রয়ী দুপুরের খাবার',
-    description: 'সূর্য বানু হোটেলের ট্রেডিশনাল খাবার ও দারুণ সময়।',
+    title: 'সূর্যে বানু হোটেলে দুপুরের খাবার',
+    subtitle: 'পুরান ঐতিহ্যবাহী সূর্যে বানু হোটেলের স্বাদ',
+    description: 'সূর্যে বানু হোটেলে।',
+    story: 'ঐতিহ্যবাহী সূর্য বানু হোটেলে বসে সব ভাই একসাথে ডাল, মাছ আর ভাতের তৃপ্তিকর খানা খাওয়ার সুস্বাদু স্মৃতি।',
     year: 2018,
     category: 'hangout',
     location: 'সূর্য বানু হোটেল',
@@ -1418,8 +1637,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-77',
-    title: 'সবাই একসাথে দি ওয়ান রেস্টুরেন্টে প্রথমবার',
-    description: 'পুরো বন্ধুমহল মিলে প্রথমবার দি ওয়ান রেস্টুরেন্টে একসঙ্গে বসার স্মারক মুহূর্ত।',
+    title: 'সবাই এক সাথে দি ওয়ান রেস্টুরেন্টে প্রথম বার',
+    subtitle: 'পুরো বন্ধুমহলের ঐতিহাসিক প্রথম গেটটুগেদার',
+    description: 'সবাই এক সাথে দি ওয়ান রেস্টুরেন্টে প্রথম বার।',
+    story: 'পুরো বন্ধুমহল (সাঈদ, পারভেজ, তরিকুল, মেহেদি, টিপু, ইমরান) একসাথে প্রথমবার দি ওয়ান রেস্টুরেন্টে জড়ো হওয়া। এক টেবিলে এতগুলো কাছের মানুষকে পাওয়ার সেই ঐতিহাসিক প্রথম দিন।',
     year: 2018,
     category: 'hangout',
     location: 'দি ওয়ান রেস্টুরেন্ট',
@@ -1438,8 +1659,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-78',
-    title: '২০১৮ সালের ঈদুল ফিতরের নামাজের পর',
-    description: '২০১৮ সালের ঈদের নামাজের পর পাঞ্জাবি কোলাকুলি ও বন্ধুদের বাঁধভাঙা আনন্দ।',
+    title: '২০১৮ সালের ঈদুল ফিতর নামাজের পর',
+    subtitle: 'কোলাকুলি ও ঈদের পাঞ্জাবি সাজ',
+    description: '২০১৮ সালের ঈদুল ফিতর নামাজের পর।',
+    story: '২০১৮ সালের ঈদের শুভসকালে ঈদগাহ ময়দানে সাঈদ ও পারভেজের নতুন পাঞ্জাবি পরে ঈদের নামাজের পর জড়িয়ে ধরে কোলাকুলি করার দৃশ্য।',
     year: 2018,
     category: 'eid',
     location: 'ঈদগাহ ময়দান ও গ্রাম',
@@ -1456,8 +1679,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-79',
-    title: 'সাগর স্যারের শুভ জন্মদিন পালন',
-    description: 'শ্রদ্ধেয় স্যারকে কেক কেটে চমকে দেওয়ার পর আনন্দভোজ।',
+    title: 'সাগর স্যারের জন্মদিন উপলক্ষে',
+    subtitle: 'শ্রদ্ধেয় শিক্ষকের জন্মদিনের কেক কাটা',
+    description: 'সাগর স্যারের জন্মদিন উপলক্ষে।',
+    story: 'সাগর স্যারকে ভালোবাসার স্মারক হিসেবে ক্লাসরুমে কেক কেটে সারপ্রাইজ দেওয়া এবং স্যারকে কেক খাইয়ে দেওয়ার স্মৃতি।',
     year: 2018,
     category: 'academic',
     location: 'কোচিং সেন্টার',
@@ -1473,8 +1698,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-80',
-    title: 'ডেমরায় ফুটবল খেলায় অংশগ্রহণ',
-    description: 'ডেমরার খেলার মাঠে রোদে পুড়ে বন্ধুদের দৌড়াদৌড়ি ও ম্যাচ উপভোগ।',
+    title: 'ডেমরা খেলাতে যাওয়া',
+    subtitle: 'ডেমরার মাঠে বিকালের খেলাধুলা',
+    description: 'ডেমার খেলাতে যাওয়া।',
+    story: 'ডেমরার খেলার মাঠে রোদে পুড়ে বন্ধুদের সাথে বল নিয়ে ছুটাছুটি ও খেলাধুলার উচ্ছ্বাস।',
     year: 2018,
     category: 'hangout',
     location: 'ডেমরা খেলার মাঠ',
@@ -1485,8 +1712,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-81',
-    title: 'বন্ধুদের ফানি পোজ ও মজা করে ছবি তোলা',
-    description: 'কোনো কারণ ছাড়াই ক্যামেরার সামনে বন্ধুদের ফানি এক্সপ্রেশনের ছবি।',
+    title: 'মজা করে ছবি তুলা',
+    subtitle: 'হাস্যরস ও ক্যানডিড ফটোসেশন',
+    description: 'মজা করে ছবি তুলা।',
+    story: 'ক্যামেরা হাতে হঠাৎ ফানি পোজ দিয়ে ছবি তোলা আর ফটো দেখে হাসিতে ভেঙে পড়ার মুহূর্ত।',
     year: 2018,
     category: 'hangout',
     location: 'আড্ডা প্রাঙ্গণ',
@@ -1497,7 +1726,9 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-82',
     title: 'শনির আখড়া বাসার ছাদে বিকালের আড্ডা',
-    description: 'ছাদের ওপর দাঁড়িয়ে থাকা ও সূর্য ডোবার দৃশ্য দেখার সুনির্মল আনন্দ।',
+    subtitle: 'ছাদের হাওয়ায় সূর্য অস্ত যাওয়া',
+    description: 'শনির আখড়া বাসার ছাদে।',
+    story: 'শনির আখড়ার বাসার ছাদে বসে পড়ন্ত বিকেলে লাল সূর্য অস্ত যাওয়া দেখা আর চা খাওয়ার আড্ডা।',
     year: 2018,
     category: 'home',
     location: 'শনির আখড়া ছাদ',
@@ -1507,8 +1738,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-83',
-    title: 'শনির আখড়া পাঠাগারের চিত্রাঙ্কন প্রতিযোগিতা',
-    description: 'পাঠাগারের চিত্রাঙ্কন আয়োজনে সহায়তার সুন্দর স্মৃতি।',
+    title: 'শনির আখারা পাঠাগারের চিত্র অংকন প্রতিজগিতায়',
+    subtitle: 'চিত্রাঙ্কন মেলা ও সৃজনশীল আয়োজক',
+    description: 'শনির আখারা পাঠাগারের চিত্র অংকন প্রতিজগিতায়।',
+    story: 'পাঠাগার চত্বরে শিশুদের চিত্রাঙ্কন প্রতিযোগিতার আয়োজন ও পুরষ্কার বিতরণের চমৎকার অভিজ্ঞতা।',
     year: 2018,
     category: 'olympiad',
     location: 'শনির আখড়া পাঠাগার',
@@ -1518,8 +1751,10 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-84',
-    title: 'চন্দ্রিমা উদ্যান (জিয়া উদ্যান) ও বসুন্ধরা ঘোরার দিন',
-    description: 'উদ্যানের সবুজ মাঠে হাঁটা এবং বসুন্ধরার আধুনিক আবহে কাটানো মিষ্টি দিন।',
+    title: 'জিয়া উদ্যান ও বসুধারা ঘুরা ঘুরি',
+    subtitle: 'চন্দ্রিমা উদ্যানের সবুজ লেক ও শপিং মল',
+    description: 'জিয়া উদ্যান ও বসুধারা ঘুরা ঘুরি।',
+    story: 'চন্দ্রিমা উদ্যানের (জিয়া উদ্যান) চত্বরে লেকের পাশে বসে আড্ডা দেওয়া আর সেখান থেকে বসুন্ধরা সিটিতে ঘুরতে যাওয়ার ঝলমলে অভিজ্ঞতা।',
     year: 2017,
     category: 'travel',
     location: 'চন্দ্রিমা উদ্যান ও বসুন্ধরা',
@@ -1535,12 +1770,15 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   {
     id: 'alb-85',
     title: '২০১৭ সালে কলেজে ভর্তির জন্য ঢাকায় আসা ও জেঠার বাসায় প্রথম রাত',
-    description: 'সাঈদ ও তরিকুল কলেজে ভর্তির জন্য ঢাকায় এলে নিউমার্কেটে দেখা করে জেঠার বাসায় রাত কাটানো। সেই রাত থেকেই ভ্রাতৃত্বের এক চিরন্তন অধ্যায়ের সূচনা।',
+    subtitle: 'ছোট্ট এক খাটে ঠাঁই দেওয়া ও বন্ধুত্বের অমর অধ্যায়',
+    description: 'কলেজে ভর্তির জন্য যখন ঢাকা এসেছ ও এক সাথে তোমার জেঠার বাসায়।',
+    story: '২০১৭ সালে সাঈদ ও তরিকুল কলেজে ভর্তির জন্য ঢাকায় এলে নিউমার্কেটে দেখা করতে যাওয়া। সেখান থেকে সাঈদের জেঠার বাসায় গিয়ে প্রথমবার রাতে একসাথে থাকা। সেই অতি ক্ষুদ্র খাটে একজন মানুষের শোওয়াও যেখানে কঠিন ছিল, সেখানে সাঈদ কত মায়ায় পারভেজকে পাশে জায়গা দিয়েছিল এবং নিজের খাবার নিজের হাতে খাইয়ে দিয়েছিল! সেই রাতেই আমাদের ভালোবাসার বন্ধন অমর রূপ লাভ করেছিল।',
     year: 2017,
     category: 'home',
     location: 'ঢাকা নিউমার্কেট ও জেঠার বাসা',
     featured: true,
     companions: ['সাঈদ (রাকিব)', 'পারভেজ', 'তরিকুল'],
+    emotionTag: 'চিরন্তন ভালোবাসার শুভসূচনা',
     photos: [
       { id: 'p-85-1', driveId: '1cKAt2Jmi2FrQLcOLimGgCISBeyb79AUk', driveUrl: 'https://drive.google.com/file/d/1cKAt2Jmi2FrQLcOLimGgCISBeyb79AUk/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1cKAt2Jmi2FrQLcOLimGgCISBeyb79AUk') },
       { id: 'p-85-2', driveId: '1OEaJuhcTRHwqYyoDz6xABurKKjzCPVXu', driveUrl: 'https://drive.google.com/file/d/1OEaJuhcTRHwqYyoDz6xABurKKjzCPVXu/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1OEaJuhcTRHwqYyoDz6xABurKKjzCPVXu') },
@@ -1548,13 +1786,16 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
   },
   {
     id: 'alb-86',
-    title: '২০১৭ সালের দুই ঈদের চিরস্মরণীয় অ্যালবাম',
-    description: '২০১৭ সালের দুটি ঈদের দিনের গল্প, আড্ডা ও শৈশব কেটে কৈশোরে পদার্পণের বন্ধুত্বের ছবিসমূহ।',
+    title: '২০১৭ সালের ২ ইদের সমাচার',
+    subtitle: 'বন্ধুত্বের প্রথম বছরের ঈদ উৎসব',
+    description: '২০১৭ সালের ২ ইদের সমাচার।',
+    story: '২০১৭ সালের ঈদুল ফিতর ও ঈদুল আজহার দিনে গ্রামের মেঠোপথে হেঁটে ঘুরে বেড়ানো, নতুন জামা পরে ছবি তোলা এবং কৈশোর থেকে যৌবনে পা দেওয়ার সোনালী মুহূর্ত।',
     year: 2017,
     category: 'eid',
     location: 'জয়দেবপুর ও গ্রাম',
     featured: true,
     companions: ['সাঈদ (রাকিব)', 'পারভেজ', 'তরিকুল', 'মেহেদি'],
+    emotionTag: 'শৈশব ও প্রথম ঈদ',
     photos: [
       { id: 'p-86-1', driveId: '1yCDUIQbVUpCsAUSVmcHo7r7QBCNF0USL', driveUrl: 'https://drive.google.com/file/d/1yCDUIQbVUpCsAUSVmcHo7r7QBCNF0USL/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1yCDUIQbVUpCsAUSVmcHo7r7QBCNF0USL') },
       { id: 'p-86-2', driveId: '1s6CYzHCcSqzkquunuKYvBGxBnsDUUL8V', driveUrl: 'https://drive.google.com/file/d/1s6CYzHCcSqzkquunuKYvBGxBnsDUUL8V/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1s6CYzHCcSqzkquunuKYvBGxBnsDUUL8V') },
@@ -1563,7 +1804,7 @@ export const MEMORY_ALBUMS: MemoryAlbum[] = [
       { id: 'p-86-5', driveId: '1gjt4bFpP9LPoqV-rTTYNJlUJFShWxf-y', driveUrl: 'https://drive.google.com/file/d/1gjt4bFpP9LPoqV-rTTYNJlUJFShWxf-y/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1gjt4bFpP9LPoqV-rTTYNJlUJFShWxf-y') },
       { id: 'p-86-6', driveId: '1bRER5wC1QV4fj8F5v8OCgSNMOLPjcdbU', driveUrl: 'https://drive.google.com/file/d/1bRER5wC1QV4fj8F5v8OCgSNMOLPjcdbU/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1bRER5wC1QV4fj8F5v8OCgSNMOLPjcdbU') },
       { id: 'p-86-7', driveId: '1lGwqkp1oZ7rWzrvcWU2K9Bz-TOpmpU96', driveUrl: 'https://drive.google.com/file/d/1lGwqkp1oZ7rWzrvcWU2K9Bz-TOpmpU96/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1lGwqkp1oZ7rWzrvcWU2K9Bz-TOpmpU96') },
-      { id: 'p-86-8', driveId: '1bkQhEvf8Q0_9R0krhr17m0o-VQyXCf4-', driveUrl: 'https://drive.google.com/file/d/1bkQhEvf8Q0_9R0krhr17m0o-VQyXCf4-/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1bkQhEvf8Q0_9R0krhr17m0o-VQyXCf4-') },
+      { id: 'p-86-8', driveId: '1bkQhEvf8Q0_9R0krhr17m0o-VQyXCf4-', driveUrl: 'https://drive.google.com/file/d/1bkQhEvf8Q0_9R0krhr17m0o-VQyXCf4-', thumbnailUrl: getDriveThumbnailUrl('1bkQhEvf8Q0_9R0krhr17m0o-VQyXCf4-') },
       { id: 'p-86-9', driveId: '1g86F_ootgu7gHUO0jX7jH-Xvo-FYRIfN', driveUrl: 'https://drive.google.com/file/d/1g86F_ootgu7gHUO0jX7jH-Xvo-FYRIfN/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1g86F_ootgu7gHUO0jX7jH-Xvo-FYRIfN') },
       { id: 'p-86-10', driveId: '1MD8_xSflOlxYfKI5UcJxDYK9GsDZa2qE', driveUrl: 'https://drive.google.com/file/d/1MD8_xSflOlxYfKI5UcJxDYK9GsDZa2qE/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1MD8_xSflOlxYfKI5UcJxDYK9GsDZa2qE') },
       { id: 'p-86-11', driveId: '1Ec9CR_10x7CcgY08aMTtW0XBRZSvfB7b', driveUrl: 'https://drive.google.com/file/d/1Ec9CR_10x7CcgY08aMTtW0XBRZSvfB7b/view?usp=drive_link', thumbnailUrl: getDriveThumbnailUrl('1Ec9CR_10x7CcgY08aMTtW0XBRZSvfB7b') },
