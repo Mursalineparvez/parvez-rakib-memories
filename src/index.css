@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    font-family: 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom scrollbars and styling elements */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(180, 140, 90, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(180, 140, 90, 0.45);
+}
+
+.serif-font {
+  font-family: 'Playfair Display', 'Hind Siliguri', Georgia, serif;
+}
+
+/* Soft ambient glow */
+.amber-glow {
+  box-shadow: 0 0 35px -5px rgba(217, 119, 6, 0.15);
+}
+
+/* Custom paper texture background effect */
+.paper-bg {
+  background-color: #fdfbf7;
+  background-image: radial-gradient(#e5e0d8 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+}
+
+.dark .paper-bg {
+  background-color: #0b0f19;
+  background-image: radial-gradient(#1e293b 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Memory of Parvez and Rakib (Syed)",
+  "description": "A heartfelt memorial site capturing 8 years of shared brotherhood, travel memories, photo albums, and a farewell letter from Parvez to Syed (Rakib).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
