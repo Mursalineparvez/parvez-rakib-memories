@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { PARVEZ_LETTER_CHAPTERS, LetterChapter } from '../data/memoriesData';
-import { BookOpen, Bookmark, Copy, Check, Volume2, VolumeX, Sparkles, ChevronRight, ChevronLeft } from 'lucide-react';
+import { PARVEZ_LETTER_CHAPTERS, MEMORY_ALBUMS, MemoryAlbum } from '../data/memoriesData';
+import { BookOpen, Bookmark, Copy, Check, Volume2, VolumeX, Sparkles, ChevronRight, ChevronLeft, Camera } from 'lucide-react';
 
-export default function LetterSection() {
+interface LetterSectionProps {
+  onSelectAlbum?: (album: MemoryAlbum, photoIndex?: number) => void;
+}
+
+export default function LetterSection({ onSelectAlbum }: LetterSectionProps) {
   const [activeChapterId, setActiveChapterId] = useState<string>('ch1');
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'xlarge'>('normal');
   const [copiedQuote, setCopiedQuote] = useState<string | null>(null);
@@ -10,6 +14,28 @@ export default function LetterSection() {
   const [isReading, setIsReading] = useState(false);
 
   const activeChapter = PARVEZ_LETTER_CHAPTERS.find((ch) => ch.id === activeChapterId) || PARVEZ_LETTER_CHAPTERS[0];
+
+  // Helper to map chapter number to corresponding memory albums with real photos
+  const getChapterPhotos = (chapterNum: number): MemoryAlbum[] => {
+    switch (chapterNum) {
+      case 1: // Visa & Farewell
+        return MEMORY_ALBUMS.filter(a => a.category === 'farewell' || a.year === 2026).slice(0, 3);
+      case 2: // 2017 & First Night in Dhaka
+        return MEMORY_ALBUMS.filter(a => a.year === 2017).slice(0, 3);
+      case 3: // 2018 & Shonir Akhra
+        return MEMORY_ALBUMS.filter(a => a.year === 2018).slice(0, 3);
+      case 4: // 8-Year Memories & Travels
+        return MEMORY_ALBUMS.filter(a => a.category === 'travel').slice(0, 3);
+      case 5: // Advice & Brotherhood
+        return MEMORY_ALBUMS.filter(a => a.category === 'eid' || a.category === 'home').slice(0, 3);
+      case 6: // Farewell & Prayers
+        return MEMORY_ALBUMS.filter(a => a.year === 2026 || a.category === 'celebration').slice(0, 3);
+      default:
+        return MEMORY_ALBUMS.slice(0, 3);
+    }
+  };
+
+  const chapterAlbums = getChapterPhotos(activeChapter.chapterNumber);
 
   const toggleBookmark = (id: string) => {
     if (bookmarkedChapters.includes(id)) {
@@ -63,11 +89,11 @@ export default function LetterSection() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-xs font-semibold mb-3">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>পারভেজের হৃদয় নিংড়ানো চিঠি</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 text-xs font-semibold mb-3 border border-amber-200/80 dark:border-amber-800">
+            <BookOpen className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+            <span>পারভেজের হৃদয় নিংড়ানো খোলা চিঠি</span>
           </div>
-          <h2 className="serif-font text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+          <h2 className="serif-font text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
             চিরন্তন বন্ধুত্বের এক অমর উপাখ্যান
           </h2>
           <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
@@ -81,21 +107,29 @@ export default function LetterSection() {
           {/* Chapter Navigation List (Left Column) */}
           <div className="lg:col-span-4 space-y-3 sticky top-20">
             
-            {/* Visual Calligraphy Header Card */}
-            <div className="relative rounded-2xl overflow-hidden mb-6 border border-amber-200 dark:border-slate-800 shadow-md h-40">
-              <img
-                src="/src/assets/images/letter_calligraphy_art_1793779613816.jpg"
-                alt="চিঠির ক্যালিগ্রাফি"
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent p-4 flex flex-col justify-end text-white">
-                <span className="text-xs text-amber-300 font-medium">খোলা চিঠির সূচিপত্র</span>
-                <h3 className="serif-font text-base font-bold text-amber-100">
-                  পারভেজ থেকে সাঈদ (রাকিব)-কে
-                </h3>
+            {/* Visual Header Card using Real Photo */}
+            {chapterAlbums[0] && chapterAlbums[0].photos[0] && (
+              <div 
+                className="relative rounded-2xl overflow-hidden mb-6 border border-amber-200 dark:border-slate-800 shadow-md h-44 group cursor-pointer"
+                onClick={() => onSelectAlbum && onSelectAlbum(chapterAlbums[0], 0)}
+              >
+                <img
+                  src={chapterAlbums[0].photos[0].thumbnailUrl}
+                  alt={chapterAlbums[0].title}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent p-4 flex flex-col justify-end text-white">
+                  <span className="text-[11px] text-amber-300 font-semibold flex items-center gap-1">
+                    <Camera className="w-3 h-3" />
+                    অধ্যায় {activeChapter.chapterNumber}-এর সাথে সম্পর্কিত আসল স্মৃতি
+                  </span>
+                  <h3 className="serif-font text-base font-bold text-amber-100 line-clamp-1">
+                    {chapterAlbums[0].title}
+                  </h3>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Chapter Buttons */}
             <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-2xl p-3 border border-amber-200/70 dark:border-slate-800 shadow-sm space-y-2">
@@ -111,9 +145,9 @@ export default function LetterSection() {
                   <button
                     key={ch.id}
                     onClick={() => setActiveChapterId(ch.id)}
-                    className={`w-full text-left p-3 rounded-xl transition-all flex items-start gap-3 text-wrap ${
+                    className={`w-full text-left p-3 rounded-xl transition-all flex items-start gap-3 text-wrap cursor-pointer ${
                       isActive
-                        ? 'bg-amber-700 text-white shadow-md dark:bg-amber-600'
+                        ? 'bg-amber-800 text-white shadow-md dark:bg-amber-600'
                         : 'hover:bg-amber-100/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200'
                     }`}
                   >
@@ -148,19 +182,19 @@ export default function LetterSection() {
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => setFontSize('normal')}
-                  className={`px-2 py-1 rounded ${fontSize === 'normal' ? 'bg-amber-700 text-white' : 'hover:bg-amber-100 dark:hover:bg-slate-800'}`}
+                  className={`px-2 py-1 rounded cursor-pointer ${fontSize === 'normal' ? 'bg-amber-800 text-white' : 'hover:bg-amber-100 dark:hover:bg-slate-800'}`}
                 >
                   স্বাভাবিক
                 </button>
                 <button
                   onClick={() => setFontSize('large')}
-                  className={`px-2 py-1 rounded ${fontSize === 'large' ? 'bg-amber-700 text-white' : 'hover:bg-amber-100 dark:hover:bg-slate-800'}`}
+                  className={`px-2 py-1 rounded cursor-pointer ${fontSize === 'large' ? 'bg-amber-800 text-white' : 'hover:bg-amber-100 dark:hover:bg-slate-800'}`}
                 >
                   বড়
                 </button>
                 <button
                   onClick={() => setFontSize('xlarge')}
-                  className={`px-2 py-1 rounded ${fontSize === 'xlarge' ? 'bg-amber-700 text-white' : 'hover:bg-amber-100 dark:hover:bg-slate-800'}`}
+                  className={`px-2 py-1 rounded cursor-pointer ${fontSize === 'xlarge' ? 'bg-amber-800 text-white' : 'hover:bg-amber-100 dark:hover:bg-slate-800'}`}
                 >
                   আরও বড়
                 </button>
@@ -183,9 +217,9 @@ export default function LetterSection() {
                 {/* Audio Read Aloud */}
                 <button
                   onClick={handleReadAloud}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
                     isReading
-                      ? 'bg-amber-700 text-white animate-pulse'
+                      ? 'bg-amber-800 text-white animate-pulse'
                       : 'bg-amber-100 dark:bg-slate-800 text-amber-900 dark:text-amber-200 hover:bg-amber-200'
                   }`}
                   title="চিঠি পড়ে শোনান"
@@ -197,7 +231,7 @@ export default function LetterSection() {
                 {/* Bookmark Chapter */}
                 <button
                   onClick={() => toggleBookmark(activeChapter.id)}
-                  className={`p-2 rounded-lg text-xs transition-colors ${
+                  className={`p-2 rounded-xl text-xs transition-colors cursor-pointer ${
                     bookmarkedChapters.includes(activeChapter.id)
                       ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
                       : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500'
@@ -219,17 +253,17 @@ export default function LetterSection() {
               </p>
             </div>
 
-            {/* Key Quote Callout (if present) */}
+            {/* Key Quote Callout */}
             {activeChapter.keyQuote && (
               <div className="my-6 p-4 sm:p-5 rounded-2xl bg-amber-50 dark:bg-slate-950 border border-amber-200 dark:border-slate-800 relative">
                 <p className="serif-font italic text-base sm:text-lg text-amber-950 dark:text-amber-200">
                   “{activeChapter.keyQuote}”
                 </p>
                 <div className="mt-3 flex items-center justify-between text-xs text-amber-700 dark:text-amber-400 font-medium">
-                  <span>চিঠির বিশেষ অনূভুতি</span>
+                  <span>চিঠির বিশেষ অনুভূতি</span>
                   <button
                     onClick={() => copyToClipboard(activeChapter.keyQuote!)}
-                    className="flex items-center gap-1 hover:text-amber-900 dark:hover:text-amber-200 transition-colors"
+                    className="flex items-center gap-1 hover:text-amber-900 dark:hover:text-amber-200 transition-colors cursor-pointer"
                   >
                     {copiedQuote === activeChapter.keyQuote ? (
                       <>
@@ -247,7 +281,7 @@ export default function LetterSection() {
               </div>
             )}
 
-            {/* Chapter Content Paragraphs */}
+            {/* Chapter Paragraphs */}
             <div className={`space-y-5 text-slate-800 dark:text-slate-200 font-normal ${fontClass}`}>
               {activeChapter.content.map((paragraph, idx) => (
                 <p key={idx} className="indent-4 sm:indent-8">
@@ -256,12 +290,50 @@ export default function LetterSection() {
               ))}
             </div>
 
-            {/* Chapter Navigation Buttons (Bottom) */}
+            {/* Embedded Real Photo Cards for this Chapter */}
+            {chapterAlbums.length > 0 && (
+              <div className="mt-8 pt-6 border-t border-amber-100 dark:border-slate-800">
+                <div className="text-xs font-bold text-amber-900 dark:text-amber-300 mb-3 flex items-center gap-1.5">
+                  <Camera className="w-4 h-4 text-amber-600" />
+                  <span>এই অধ্যায়ের সাথে সম্পর্কিত আসল স্মৃতি অ্যালবাম:</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {chapterAlbums.map((album) => {
+                    const photo = album.photos[0];
+                    if (!photo) return null;
+                    return (
+                      <div
+                        key={album.id}
+                        onClick={() => onSelectAlbum && onSelectAlbum(album, 0)}
+                        className="bg-amber-50/70 dark:bg-slate-950 p-2 rounded-xl border border-amber-200 dark:border-slate-800 hover:shadow-md transition-all cursor-pointer group"
+                      >
+                        <div className="aspect-4/3 rounded-lg overflow-hidden bg-slate-900 mb-2">
+                          <img
+                            src={photo.thumbnailUrl}
+                            alt={album.title}
+                            referrerPolicy="no-referrer"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                          />
+                        </div>
+                        <h4 className="serif-font text-xs font-bold text-slate-900 dark:text-slate-100 line-clamp-1">
+                          {album.title}
+                        </h4>
+                        <span className="text-[10px] text-amber-700 dark:text-amber-400 font-mono">
+                          {album.year} · {album.photos.length}টি ছবি
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Bottom Chapter Nav Buttons */}
             <div className="mt-10 pt-6 border-t border-amber-100 dark:border-slate-800 flex items-center justify-between">
               <button
                 disabled={currentChapterIndex === 0}
                 onClick={() => setActiveChapterId(PARVEZ_LETTER_CHAPTERS[currentChapterIndex - 1].id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   currentChapterIndex === 0
                     ? 'opacity-40 cursor-not-allowed text-slate-400'
                     : 'bg-amber-100 text-amber-900 dark:bg-slate-800 dark:text-amber-200 hover:bg-amber-200'
@@ -278,10 +350,10 @@ export default function LetterSection() {
               <button
                 disabled={currentChapterIndex === PARVEZ_LETTER_CHAPTERS.length - 1}
                 onClick={() => setActiveChapterId(PARVEZ_LETTER_CHAPTERS[currentChapterIndex + 1].id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   currentChapterIndex === PARVEZ_LETTER_CHAPTERS.length - 1
                     ? 'opacity-40 cursor-not-allowed text-slate-400'
-                    : 'bg-amber-700 text-white hover:bg-amber-800 dark:bg-amber-600'
+                    : 'bg-amber-800 text-white hover:bg-amber-900 dark:bg-amber-600'
                 }`}
               >
                 <span>পরবর্তী অধ্যায়</span>

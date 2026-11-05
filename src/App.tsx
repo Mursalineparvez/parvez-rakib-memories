@@ -64,10 +64,13 @@ export default function App() {
         <Hero
           onReadLetter={handleReadLetter}
           onExploreGallery={handleExploreGallery}
+          onSelectAlbum={handleOpenAlbum}
         />
 
         {/* Letter Reading Section */}
-        <LetterSection />
+        <LetterSection
+          onSelectAlbum={handleOpenAlbum}
+        />
 
         {/* Parvez's 5 Advice Cards */}
         <AdviceCards />
@@ -84,6 +87,7 @@ export default function App() {
           onYearSelect={(year) => {
             setSearchQuery(year.toString());
           }}
+          onSelectAlbum={handleOpenAlbum}
         />
 
         {/* Friends & Companions Section */}
@@ -91,6 +95,7 @@ export default function App() {
           onFriendSelect={(friendName) => {
             setSearchQuery(friendName);
           }}
+          onSelectAlbum={handleOpenAlbum}
         />
 
         {/* Nostalgia Quiz Interactive Section */}
