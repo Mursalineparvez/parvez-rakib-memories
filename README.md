@@ -24,10 +24,10 @@
    - **Framework Preset:** Vite (স্বয়ংক্রিয়ভাবে সিলেক্ট হবে)
    - **Build Command:** `npm run build`
    - **Output Directory:** `dist`
-   - **Install Command:** `npm install`
+   - **Install Command:** `npm install --legacy-peer-deps` (এটি `vercel.json` ও `.npmrc` দিয়ে স্বয়ংক্রিয়ভাবে কনফিগার করা আছে)
 
 ৪. **Deploy-এ ক্লিক করুন:**
-   - **"Deploy"** বাটনে চাপ দিন। ১-২ মিনিটের মধ্যেই আপনার ওয়েবসাইটটি Vercel-এ লাইভ হয়ে যাবে এবং একটি সুন্দর ফ্রি ডোমেইন লিঙ্ক (`.vercel.app`) পাবেন!
+   - **"Deploy"** (বা Redepoy) বাটনে চাপ দিন। কোনো peer dependency এরর ছাড়াই সফলভাবে লাইভ হয়ে যাবে!
 
 ---
 
