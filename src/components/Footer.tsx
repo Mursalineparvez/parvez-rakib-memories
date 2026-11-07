@@ -48,10 +48,6 @@ export default function Footer() {
                 <Users className="w-3.5 h-3.5 text-amber-400" />
                 <span>বন্ধুমহল</span>
               </a>
-              <a href="#advice" className="hover:text-white transition-colors flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>শেষ নসিহত</span>
-              </a>
             </div>
           </div>
 

@@ -10,7 +10,6 @@ import LetterSection from './components/LetterSection';
 import GallerySection from './components/GallerySection';
 import TimelineSection from './components/TimelineSection';
 import FriendsSection from './components/FriendsSection';
-import AdviceCards from './components/AdviceCards';
 import Footer from './components/Footer';
 import ImageModal from './components/ImageModal';
 import { MemoryAlbum } from './data/memoriesData';
@@ -69,9 +68,6 @@ export default function App() {
         <LetterSection
           onSelectAlbum={handleOpenAlbum}
         />
-
-        {/* Parvez's 5 Advice Cards */}
-        <AdviceCards />
 
         {/* Photo & Memory Gallery Section */}
         <GallerySection

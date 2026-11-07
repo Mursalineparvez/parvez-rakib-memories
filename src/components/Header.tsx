@@ -61,13 +61,6 @@ export default function Header({ onSearchClick }: HeaderProps) {
             <Users className="w-4 h-4 text-amber-600/70" />
             <span>বন্ধুমহল</span>
           </a>
-          <a
-            href="#advice"
-            className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5"
-          >
-            <Sparkles className="w-4 h-4 text-amber-600/70" />
-            <span>শেষ নসিহত</span>
-          </a>
         </nav>
 
         {/* Zone 3: Actions & Controls */}
