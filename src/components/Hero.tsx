@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Images, Heart, MapPin, Calendar, ArrowRight, Play, Pause, ChevronLeft, ChevronRight, Sparkles, ShieldCheck } from 'lucide-react';
+import { BookOpen, Images, Heart, MapPin, Calendar, ArrowRight, Play, Pause, ChevronLeft, ChevronRight, Sparkles, ShieldCheck, Camera } from 'lucide-react';
 import { MEMORY_ALBUMS, MemoryAlbum } from '../data/memoriesData';
 
 interface HeroProps {
@@ -233,30 +233,39 @@ export default function Hero({ onReadLetter, onExploreGallery, onSelectAlbum }: 
 
         {/* Quantitative Metrics Row */}
         <div className="mt-12 pt-8 border-t border-amber-200/60 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-          <div className="p-4 rounded-2xl bg-white/60 dark:bg-slate-900/60 border border-amber-200/60 dark:border-slate-800 shadow-xs hover:border-amber-300 transition-colors">
-            <span className="block text-2xl sm:text-3xl font-bold font-mono tabular-nums text-amber-800 dark:text-amber-400">
-              ৮ বছর
-            </span>
-            <span className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1 block">
-              অকৃত্রিম পথচলা (২০১৭-২০২৬)
+          <div className="p-5 rounded-2xl bg-gradient-to-b from-white/80 to-amber-50/50 dark:from-slate-900/80 dark:to-slate-900/40 border border-amber-200/70 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-amber-400/80 dark:hover:border-amber-600/60 transition-all group">
+            <div className="flex items-center justify-center gap-2 mb-1 text-amber-700 dark:text-amber-400">
+              <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span className="text-3xl font-extrabold font-mono tabular-nums text-amber-900 dark:text-amber-300">
+                ৮ বছর
+              </span>
+            </div>
+            <span className="text-xs text-slate-600 dark:text-slate-400 font-medium block">
+              অকৃত্রিম যৌথ পথচলা (২০১৭ – ২০২৬)
             </span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/60 dark:bg-slate-900/60 border border-amber-200/60 dark:border-slate-800 shadow-xs hover:border-amber-300 transition-colors">
-            <span className="block text-2xl sm:text-3xl font-bold font-mono tabular-nums text-amber-800 dark:text-amber-400">
-              ৮৬টি
-            </span>
-            <span className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1 block">
+          <div className="p-5 rounded-2xl bg-gradient-to-b from-white/80 to-amber-50/50 dark:from-slate-900/80 dark:to-slate-900/40 border border-amber-200/70 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-amber-400/80 dark:hover:border-amber-600/60 transition-all group">
+            <div className="flex items-center justify-center gap-2 mb-1 text-amber-700 dark:text-amber-400">
+              <Images className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span className="text-3xl font-extrabold font-mono tabular-nums text-amber-900 dark:text-amber-300">
+                ৮৬টি
+              </span>
+            </div>
+            <span className="text-xs text-slate-600 dark:text-slate-400 font-medium block">
               গুগল ড্রাইভ স্মৃতি অ্যালবাম
             </span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/60 dark:bg-slate-900/60 border border-amber-200/60 dark:border-slate-800 shadow-xs hover:border-amber-300 transition-colors">
-            <span className="block text-2xl sm:text-3xl font-bold font-mono tabular-nums text-amber-800 dark:text-amber-400">
-              ১৮০+
-            </span>
-            <span className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1 block">
-              বাস্তব স্মৃতির আলোকচিত্র
+          <div className="p-5 rounded-2xl bg-gradient-to-b from-white/80 to-amber-50/50 dark:from-slate-900/80 dark:to-slate-900/40 border border-amber-200/70 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-amber-400/80 dark:hover:border-amber-600/60 transition-all group">
+            <div className="flex items-center justify-center gap-2 mb-1 text-amber-700 dark:text-amber-400">
+              <Camera className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span className="text-3xl font-extrabold font-mono tabular-nums text-amber-900 dark:text-amber-300">
+                ১৮০+
+              </span>
+            </div>
+            <span className="text-xs text-slate-600 dark:text-slate-400 font-medium block">
+              বাস্তব স্মৃতির সংরক্ষিত আলোকচিত্র
             </span>
           </div>
         </div>

@@ -62,11 +62,11 @@ export default function Header({ onSearchClick }: HeaderProps) {
             <span>বন্ধুমহল</span>
           </a>
           <a
-            href="#guestbook"
+            href="#advice"
             className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5"
           >
-            <MessageSquareQuote className="w-4 h-4 text-amber-600/70" />
-            <span>দোয়া ও বার্তা</span>
+            <Sparkles className="w-4 h-4 text-amber-600/70" />
+            <span>শেষ নসিহত</span>
           </a>
         </nav>
 

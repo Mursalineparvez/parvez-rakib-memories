@@ -14,8 +14,9 @@ export default function AdviceCards() {
   };
 
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-amber-100/50 to-amber-50/40 dark:from-slate-900 dark:to-slate-950 border-b border-amber-200/50 dark:border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="advice" className="py-16 sm:py-24 bg-gradient-to-b from-amber-100/40 via-amber-50/30 to-amber-100/20 dark:from-slate-900/90 dark:via-slate-950 dark:to-slate-900/60 border-b border-amber-200/60 dark:border-slate-800 relative overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-amber-400/10 dark:bg-amber-600/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-14">
