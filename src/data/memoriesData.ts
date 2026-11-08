@@ -68,7 +68,7 @@ export interface QuizQuestion {
 }
 
 export const CATEGORIES: MemoryCategory[] = [
-  { id: 'all', nameBn: 'সকল স্মৃতি (৮৬টি)', icon: 'Sparkles' },
+  { id: 'all', nameBn: 'সকল স্মৃতি (৮৭টি)', icon: 'Sparkles' },
   { id: 'travel', nameBn: 'সেরা ভ্রমণ ও সফর', icon: 'Compass' },
   { id: 'olympiad', nameBn: 'অলিম্পিয়াড ও প্রতিযোগিতা', icon: 'Award' },
   { id: 'eid', nameBn: 'ঈদ ও ধর্মীয় আয়োজন', icon: 'Moon' },
@@ -393,6 +393,27 @@ export function getDriveDirectViewUrl(driveId: string): string {
 
 // 86 Complete Memory Albums with Rich Detailed Storytelling Narratives
 export const MEMORY_ALBUMS: MemoryAlbum[] = [
+  {
+    id: 'alb-0',
+    title: 'শাহজালাল আন্তর্জাতিক বিমানবন্দর — অবশেষে আজ চলে যাচ্ছ',
+    subtitle: 'আবেগঘন প্রবাস যাত্রা ও শেষ বিদায়',
+    description: '৮ নভেম্বর ২০২৬: শাহজালাল আন্তর্জাতিক বিমানবন্দরে সাঈদ (রাকিব)-এর প্রবাসে পাড়ি জমানোর শেষ বিদায়ের পরম মুহূর্ত।',
+    story: '৮ নভেম্বর ২০২৬। অবশেষে সেই দিনটি এসে হাজির হলো। শাহজালাল আন্তর্জাতিক বিমানবন্দরে সাঈদের প্রবাসে উড়াল দেওয়ার মুহূর্ত। ৮ বছরের সহস্রাধিক হাসিকান্নার স্মৃতির পর এয়ারপোর্টের টার্মিনালে জড়িয়ে ধরে শেষ বিদায় জানানো। চোখের জল আর হৃদয়ের গভীর শূন্যতা নিয়ে পারভেজের বিদায় সম্ভাষণ—"পৃথিবীর যেখানেই থাকো না কেন, তোমার জন্য বাংলাদেশে একজন পারভেজ সব সময় অপেক্ষায় থাকবে।"',
+    year: 2026,
+    category: 'farewell',
+    location: 'শাহজালাল আন্তর্জাতিক বিমানবন্দর, ঢাকা',
+    featured: true,
+    companions: ['সাঈদ (রাকিব)', 'পারভেজ'],
+    emotionTag: 'আবেগঘন শেষ বিদায়',
+    photos: [
+      {
+        id: 'p-0-1',
+        driveId: '1K6Gg0dUJLWvDAlymlzSjabnXJLZ8e8w0',
+        driveUrl: 'https://drive.google.com/file/d/1K6Gg0dUJLWvDAlymlzSjabnXJLZ8e8w0/view?usp=drivesdk',
+        thumbnailUrl: getDriveThumbnailUrl('1K6Gg0dUJLWvDAlymlzSjabnXJLZ8e8w0'),
+      },
+    ],
+  },
   {
     id: 'alb-1',
     title: 'রোজার ঈদ ২০২৬ জয়দেবপুর কেন্দ্রীয় ঈদগাঁ',

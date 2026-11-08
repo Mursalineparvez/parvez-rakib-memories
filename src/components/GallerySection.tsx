@@ -53,7 +53,7 @@ export default function GallerySection({ searchQuery, onSearchChange, onSelectAl
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-xs font-semibold mb-3">
               <Images className="w-3.5 h-3.5" />
-              <span>স্মৃতির ডিজিটাল অ্যালবাম (৮৬টি)</span>
+              <span>স্মৃতির ডিজিটাল অ্যালবাম (৮৭টি)</span>
             </div>
             <h2 className="serif-font text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
               আমাদের সকল যৌথ ছবি ও অমলিন গল্পগাথা

@@ -56,7 +56,7 @@ export default function Hero({ onReadLetter, onExploreGallery, onSelectAlbum }: 
               <span aria-hidden="true">·</span>
               <span>৮ বছরের প্রকৃত ভ্রাতৃত্ব</span>
               <span aria-hidden="true">·</span>
-              <span>৮৬টি আসল গ্যালারি</span>
+              <span>৮৭টি আসল গ্যালারি</span>
             </div>
 
             {/* Main Headline */}
@@ -102,7 +102,7 @@ export default function Hero({ onReadLetter, onExploreGallery, onSelectAlbum }: 
                 className="inline-flex items-center gap-2.5 px-6 py-3.5 text-sm font-semibold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-amber-50 dark:hover:bg-slate-800 border border-amber-300/80 dark:border-slate-700 rounded-xl shadow-xs transition-all cursor-pointer"
               >
                 <Images className="w-4 h-4 text-amber-700 dark:text-amber-400" />
-                <span>৮৬টি আসল ছবি দেখুন</span>
+                <span>৮৭টি আসল ছবি দেখুন</span>
               </button>
             </div>
           </div>
@@ -249,7 +249,7 @@ export default function Hero({ onReadLetter, onExploreGallery, onSelectAlbum }: 
             <div className="flex items-center justify-center gap-2 mb-1 text-amber-700 dark:text-amber-400">
               <Images className="w-5 h-5 group-hover:scale-110 transition-transform" />
               <span className="text-3xl font-extrabold font-mono tabular-nums text-amber-900 dark:text-amber-300">
-                ৮৬টি
+                ৮৭টি
               </span>
             </div>
             <span className="text-xs text-slate-600 dark:text-slate-400 font-medium block">

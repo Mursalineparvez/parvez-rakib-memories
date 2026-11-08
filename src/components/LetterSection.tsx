@@ -380,7 +380,7 @@ export default function LetterSection({ onSelectAlbum }: LetterSectionProps) {
                 href="#gallery"
                 className="text-xs font-semibold text-amber-800 dark:text-amber-400 hover:underline flex items-center gap-1"
               >
-                <span>সকল ৮৬টি অ্যালবাম</span>
+                <span>সকল ৮৭টি অ্যালবাম</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>

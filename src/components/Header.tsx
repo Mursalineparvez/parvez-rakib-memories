@@ -45,7 +45,7 @@ export default function Header({ onSearchClick }: HeaderProps) {
             className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5"
           >
             <Images className="w-4 h-4 text-amber-600/70" />
-            <span>স্মৃতি অ্যালবাম (৮৬টি)</span>
+            <span>স্মৃতি অ্যালবাম (৮৭টি)</span>
           </a>
           <a
             href="#timeline"
